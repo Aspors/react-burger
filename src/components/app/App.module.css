@@ -1,0 +1,4 @@
+.container {
+  composes: container from "../../index.css";
+  padding: 40px 20px;
+}

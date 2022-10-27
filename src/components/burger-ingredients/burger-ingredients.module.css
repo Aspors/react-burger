@@ -1,0 +1,16 @@
+.buildBurger {
+  display: inline-block;
+  width: fit-content;
+  position: relative;
+}
+.buildBurger__tabs {
+  max-width: 600px;
+  display: flex;
+  margin-bottom: 40px;
+}
+
+.menu {
+  max-height: 68vh;
+  max-width: 600px;
+  overflow-y: scroll;
+}
