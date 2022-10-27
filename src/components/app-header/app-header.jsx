@@ -19,7 +19,7 @@ export default class AppHeader extends Component {
             <nav className={appHeaderStyles.nav}>
               <ul className={appHeaderStyles.nav__list}>
                 <li className={appHeaderStyles["nav__list-item"]}>
-                  <a href="#" className={appHeaderStyles["nav__list-link"]}>
+                  <a className={appHeaderStyles["nav__list-link"]} href="/">
                     <BurgerIcon type="primary" />
                     <span className={appHeaderStyles["nav__list-span"]}>
                       Конструктор
@@ -27,7 +27,7 @@ export default class AppHeader extends Component {
                   </a>
                 </li>
                 <li className={appHeaderStyles["nav__list-item"]}>
-                  <a href="#" className={appHeaderStyles["nav__list-link"]}>
+                  <a className={appHeaderStyles["nav__list-link"]} href="/">
                     <ListIcon type="secondary" />
                     <span className={appHeaderStyles["nav__list-span"]}>
                       Лента заказов
@@ -36,13 +36,13 @@ export default class AppHeader extends Component {
                 </li>
               </ul>
             </nav>
-            <a className={appHeaderStyles.header__logo} href="#">
+            <a className={appHeaderStyles.header__logo} href="/">
               <Logo />
             </a>
             <nav className={appHeaderStyles.nav}>
               <ul className={appHeaderStyles.nav__list}>
                 <li className={appHeaderStyles["nav__list-item"]}>
-                  <a className={appHeaderStyles["nav__list-link"]} href="#">
+                  <a className={appHeaderStyles["nav__list-link"]} href="/">
                     <ProfileIcon type="secondary" />
                     <span className={appHeaderStyles["nav__list-span"]}>
                       Личный кабинет

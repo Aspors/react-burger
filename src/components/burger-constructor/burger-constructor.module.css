@@ -1,0 +1,24 @@
+.constructor__menu {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: fit-content;
+  height: fit-content;
+  min-height: 90px;
+  overflow-y: scroll;
+  padding: 16px 0;
+}
+
+.constructor__total {
+  margin-top: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  gap: 40px;
+}
+
+.constructor__total svg {
+  width: 36px;
+  height: 36px;
+  padding-top: 1px;
+}

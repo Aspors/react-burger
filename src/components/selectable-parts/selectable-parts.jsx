@@ -17,7 +17,7 @@ export default class SelectableParts extends PureComponent {
           if (item.type === type) {
             return (
               <div
-                tabIndex={-1}
+                tabIndex={0}
                 key={item._id}
                 className={selectablePartsStyles.menu__item}>
                 <img src={item.image} alt={type} className="menu__item-img" />
@@ -37,6 +37,7 @@ export default class SelectableParts extends PureComponent {
               </div>
             );
           }
+          return null;
         })}
       </div>
     );
