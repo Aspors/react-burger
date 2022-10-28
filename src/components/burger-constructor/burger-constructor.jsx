@@ -12,7 +12,7 @@ export default class BurgerConstructor extends PureComponent {
     const { cart } = this.props;
     const bun = cart.find((item) => item.type === "bun");
     return (
-      <div className="pt-15 pl-3">
+      <section className="pt-15 pl-3">
         <div className="pl-8 pr-3">
           <ConstructorElement
             type="top"
@@ -57,11 +57,11 @@ export default class BurgerConstructor extends PureComponent {
             className="text text_type_digits-medium">
             610 <CurrencyIcon type="primary" />
           </span>
-          <Button type="primary" size="large">
+          <Button type="primary" size="medium">
             Отправить заказ
           </Button>
         </div>
-      </div>
+      </section>
     );
   }
 }
