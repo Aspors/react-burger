@@ -1,14 +1,17 @@
-import React, { Component } from "react";
+import React, { useCallback, useState } from "react";
 import appStyles from "./App.module.css";
 import AppHeader from "../app-header/app-header";
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import Tabs from "../tabs/tabs";
 import data from "./data";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
+import BuregerIngredientsMenu from "../burger-ingredients-wrapper/burger-ingredients-menu";
+import SelectableParts from "../selectable-parts/selectable-parts";
+import { MENU_TYPE } from "../../utils/consts/common-consts";
 
-export default class App extends Component {
-  state = {
-    current: "Булки",
+const App = () => {
+  const initialState = {
+    current: MENU_TYPE.BUN,
     cart: [
       {
         _id: "60666c42cc7b410027a1a9b1",
@@ -57,26 +60,31 @@ export default class App extends Component {
     ],
   };
 
-  onTabClick = (value) => {
-    this.setState({ ...this.state, current: value });
-  };
+  const [state, setState] = useState(initialState);
+  const { cart, current } = state;
 
-  render() {
-    return (
-      <div className="App">
-        <AppHeader />
-        <main>
-          <div className={appStyles.container}>
-            <BurgerIngredients data={data} cart={this.state.cart}>
-              <h1 className="text text_type_main-large mb-5">
-                Соберите бургер
-              </h1>
-              <Tabs onTabClick={this.onTabClick} current={this.state.current} />
-            </BurgerIngredients>
-            <BurgerConstructor cart={this.state.cart} />
-          </div>
-        </main>
-      </div>
-    );
-  }
-}
+  const onTabClick = useCallback((value) => {
+    setState((state) => ({ ...state, current: value }));
+  }, []);
+
+  return (
+    <div className="App">
+      <AppHeader />
+      <main>
+        <div className={appStyles.container}>
+          <BurgerIngredients>
+            <Tabs onTabClick={onTabClick} current={current} />
+            <BuregerIngredientsMenu>
+              <SelectableParts data={data} type={MENU_TYPE.BUN} cart={cart} />
+              <SelectableParts data={data} type={MENU_TYPE.SAUCE} cart={cart} />
+              <SelectableParts data={data} type={MENU_TYPE.MAIN} cart={cart} />
+            </BuregerIngredientsMenu>
+          </BurgerIngredients>
+          <BurgerConstructor cart={cart} />
+        </div>
+      </main>
+    </div>
+  );
+};
+
+export default App;

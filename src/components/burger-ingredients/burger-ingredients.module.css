@@ -8,9 +8,3 @@
   display: flex;
   margin-bottom: 40px;
 }
-
-.menu {
-  max-height: 68vh;
-  max-width: 600px;
-  overflow-y: scroll;
-}

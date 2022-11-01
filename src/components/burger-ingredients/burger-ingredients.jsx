@@ -1,23 +1,20 @@
-import React, { PureComponent } from "react";
+import React from "react";
 import burgerIngredientsStyles from "./burger-ingredients.module.css";
+import PropTypes from "prop-types";
+import { HEADER } from "../../utils/consts/headers-consts";
 
-import SelectableParts from "../selectable-parts/selectable-parts";
+const BurgerIngredients = (props) => {
+  const { children } = props;
+  return (
+    <section className={burgerIngredientsStyles.buildBurger}>
+      <h1 className="text text_type_main-large mb-5">{HEADER.BUILD_BURGER}</h1>
+      {children}
+    </section>
+  );
+};
 
-export default class BurgerIngredients extends PureComponent {
-  render() {
-    const { data, cart } = this.props;
-    return (
-      <section className={burgerIngredientsStyles.buildBurger}>
-        {this.props.children}
-        <div className={burgerIngredientsStyles.menu}>
-          <p className="text text_type_main-medium mb-6">Булки</p>
-          <SelectableParts data={data} type="bun" cart={cart} />
-          <p className="text text_type_main-medium mt-10">Соусы</p>
-          <SelectableParts data={data} type="sauce" cart={cart} />
-          <p className="text text_type_main-medium mt-10">Основа</p>
-          <SelectableParts data={data} type="main" cart={cart} />
-        </div>
-      </section>
-    );
-  }
-}
+BurgerIngredients.propTypes = {
+  children: PropTypes.arrayOf(PropTypes.element),
+};
+
+export default BurgerIngredients;

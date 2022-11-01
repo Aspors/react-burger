@@ -1,17 +1,20 @@
-import React, { PureComponent } from "react";
+import React, { memo } from "react";
 import selectablePartsStyles from "./selectable-parts.module.css";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import { MENU_TYPE_TRANSLATION } from "../../utils/consts/common-consts";
+import PropTypes from "prop-types";
+import { goodsItemTypes } from "../../utils/types/common-types";
 
-export default class SelectableParts extends PureComponent {
-  menuSections = {
-    bun: "Булки",
-    sauce: "Соусы",
-    main: "Основа",
-  };
-
-  render() {
-    const { data, type } = this.props;
-    return (
+const SelectableParts = memo((props) => {
+  const { data, type } = props;
+  return (
+    <>
+      <span
+        className={
+          "text text_type_main-medium mb-6 " + selectablePartsStyles.partsName
+        }>
+        {MENU_TYPE_TRANSLATION[type]}
+      </span>
       <div className={selectablePartsStyles["menu__items"]}>
         {data.map((item, index) => {
           if (item.type === type) {
@@ -40,6 +43,14 @@ export default class SelectableParts extends PureComponent {
           return null;
         })}
       </div>
-    );
-  }
-}
+    </>
+  );
+});
+
+SelectableParts.propTypes = {
+  data: PropTypes.arrayOf(goodsItemTypes).isRequired,
+  type: PropTypes.string.isRequired,
+  cart: PropTypes.arrayOf(goodsItemTypes).isRequired,
+};
+
+export default SelectableParts;

@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { memo } from "react";
 import {
   Logo,
   BurgerIcon,
@@ -6,54 +6,52 @@ import {
   ProfileIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import appHeaderStyles from "./app-header.module.css";
+import { BUTTON } from "../../utils/consts/buttons-text";
 
-export default class AppHeader extends Component {
-  shouldComponentUpdate() {
-    return false;
-  }
-  render() {
-    return (
-      <header className={appHeaderStyles.header}>
-        <div className="container">
-          <div className={appHeaderStyles.header__inner}>
-            <nav className={appHeaderStyles.nav}>
-              <ul className={appHeaderStyles.nav__list}>
-                <li className={appHeaderStyles["nav__list-item"]}>
-                  <a className={appHeaderStyles["nav__list-link"]} href="/">
-                    <BurgerIcon type="primary" />
-                    <span className={appHeaderStyles["nav__list-span"]}>
-                      Конструктор
-                    </span>
-                  </a>
-                </li>
-                <li className={appHeaderStyles["nav__list-item"]}>
-                  <a className={appHeaderStyles["nav__list-link"]} href="/">
-                    <ListIcon type="secondary" />
-                    <span className={appHeaderStyles["nav__list-span"]}>
-                      Лента заказов
-                    </span>
-                  </a>
-                </li>
-              </ul>
-            </nav>
-            <a className={appHeaderStyles.header__logo} href="/">
-              <Logo />
-            </a>
-            <nav className={appHeaderStyles.nav}>
-              <ul className={appHeaderStyles.nav__list}>
-                <li className={appHeaderStyles["nav__list-item"]}>
-                  <a className={appHeaderStyles["nav__list-link"]} href="/">
-                    <ProfileIcon type="secondary" />
-                    <span className={appHeaderStyles["nav__list-span"]}>
-                      Личный кабинет
-                    </span>
-                  </a>
-                </li>
-              </ul>
-            </nav>
-          </div>
+const AppHeader = memo(() => {
+  return (
+    <header className={appHeaderStyles.header}>
+      <div className="container">
+        <div className={appHeaderStyles.header__inner}>
+          <nav className={appHeaderStyles.nav}>
+            <ul className={appHeaderStyles.nav__list}>
+              <li className={appHeaderStyles["nav__list-item"]}>
+                <a className={appHeaderStyles["nav__list-link"]} href="/">
+                  <BurgerIcon type="primary" />
+                  <span className={appHeaderStyles["nav__list-span"]}>
+                    {BUTTON.CONSTRUCTOR}
+                  </span>
+                </a>
+              </li>
+              <li className={appHeaderStyles["nav__list-item"]}>
+                <a className={appHeaderStyles["nav__list-link"]} href="/">
+                  <ListIcon type="secondary" />
+                  <span className={appHeaderStyles["nav__list-span"]}>
+                    {BUTTON.LINE}
+                  </span>
+                </a>
+              </li>
+            </ul>
+          </nav>
+          <a className={appHeaderStyles.header__logo} href="/">
+            <Logo />
+          </a>
+          <nav className={appHeaderStyles.nav}>
+            <ul className={appHeaderStyles.nav__list}>
+              <li className={appHeaderStyles["nav__list-item"]}>
+                <a className={appHeaderStyles["nav__list-link"]} href="/">
+                  <ProfileIcon type="secondary" />
+                  <span className={appHeaderStyles["nav__list-span"]}>
+                    {BUTTON.PROFILE_MENU}
+                  </span>
+                </a>
+              </li>
+            </ul>
+          </nav>
         </div>
-      </header>
-    );
-  }
-}
+      </div>
+    </header>
+  );
+});
+
+export default AppHeader;
