@@ -1,5 +1,5 @@
 import React from "react";
-import AcceptButton from "../../utils/buttons/accept-button";
+import AcceptButton from "../utils/buttons/accept-button";
 import { ORDER_DETAILS_TXT } from "../../utils/consts/order-details-consts";
 import orderDetailsStyles from "./order-details.module.css";
 import PropTypes from "prop-types";

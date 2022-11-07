@@ -8,10 +8,9 @@ import BurgerConstructor from "../burger-constructor/burger-constructor";
 import BuregerIngredientsMenu from "../burger-ingredients-wrapper/burger-ingredients-menu";
 import SelectableParts from "../selectable-parts/selectable-parts";
 import { MENU_TYPE } from "../../utils/consts/common-consts";
-import { useHttp } from "../../hooks/http.hook";
-import { API_LINK } from "../../utils/consts/api-const";
-import Spinner from "../../utils/spinner/spinner";
-import ErrorMessage from "../../utils/error-message/error-message";
+import Spinner from "../utils/spinner/spinner";
+import ErrorMessage from "../utils/error-message/error-message";
+import useNormaService from "../../services/useNormaService";
 
 const App = () => {
   const initialState = {
@@ -19,16 +18,13 @@ const App = () => {
     current: MENU_TYPE.BUN,
     cart: initialCart,
   };
-  const { request, loading, error } = useHttp();
+  const { getAllIngredients, loading, error } = useNormaService();
   const [state, setState] = useState(initialState);
   const { data, cart, current } = state;
 
-  const getIngredients = (link) => {
-    request(link).then((res) => setState({ ...state, data: res.data }));
-  };
-
   useEffect(() => {
-    getIngredients(API_LINK);
+    getAllIngredients().then((res) => setState({ ...state, data: res.data }));
+    // eslint-disable-next-line
   }, []);
 
   const onTabClick = useCallback((value) => {
