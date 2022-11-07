@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React, { memo, useCallback, useState } from "react";
 import {
   ConstructorElement,
   DragIcon,
@@ -10,10 +10,21 @@ import { MENU_TYPE } from "../../utils/consts/common-consts";
 import { BUTTON } from "../../utils/consts/buttons-text";
 import PropTypes from "prop-types";
 import { goodsItemTypes } from "../../utils/types/common-types";
+import Modal from "../modal/modal";
+import OrderDetails from "../order-details/order-details";
 
 const BurgerConstructor = memo((props) => {
+  const [modalActive, setModalActive] = useState(false);
   const { cart } = props;
   const bun = cart.find((item) => item.type === MENU_TYPE.BUN);
+  const handleShowModal = useCallback(() => {
+    setModalActive((modalActive) => !modalActive);
+  }, []);
+
+  function handleOrderSubmit(e) {
+    e.preventDefault();
+    handleShowModal();
+  }
   return (
     <section className="pt-15 pl-3">
       <div className="pl-8 pr-3">
@@ -59,10 +70,20 @@ const BurgerConstructor = memo((props) => {
           className="text text_type_digits-medium">
           610 <CurrencyIcon type="primary" />
         </span>
-        <Button htmlType="submit" type="primary" size="medium">
+        <Button
+          onClick={(e) => handleOrderSubmit(e)}
+          disabled={modalActive}
+          htmlType="submit"
+          type="primary"
+          size="medium">
           {BUTTON.SEND}
         </Button>
       </div>
+      {modalActive && (
+        <Modal handleShowModal={handleShowModal}>
+          <OrderDetails handleShowModal={handleShowModal} />
+        </Modal>
+      )}
     </section>
   );
 });

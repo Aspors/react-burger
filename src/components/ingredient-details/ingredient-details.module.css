@@ -1,0 +1,28 @@
+.ingredint-details__img {
+  display: block;
+  max-width: 480px;
+  margin: 0 auto;
+}
+.ingredient-details__title {
+  display: block;
+  margin: 0 auto;
+  margin-top: 16px;
+  text-align: center;
+}
+
+.ingredient-details__nutrition-value {
+  display: flex;
+  justify-content: space-between;
+}
+.ingredient-details__nutrition-value li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: "JetBrains Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  color: #8585ad;
+  row-gap: 8px;
+}
