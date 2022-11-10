@@ -8,3 +8,42 @@
   display: flex;
   margin-bottom: 40px;
 }
+
+.menu {
+  max-height: 68vh;
+  max-width: 600px;
+  padding-right: 8px;
+  overflow-y: scroll;
+}
+
+.menu__items {
+  display: flex;
+  flex-wrap: wrap;
+  padding-left: 16px;
+  margin-top: 24px;
+  margin-bottom: 40px;
+  row-gap: 32px;
+  justify-content: space-between;
+}
+
+.menu__item {
+  display: flex;
+  position: relative;
+  align-items: center;
+  flex-direction: column;
+  cursor: pointer;
+  gap: 4px;
+  width: 272px;
+  height: 208px;
+}
+
+.menu__item-price {
+  text-align: center;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.partsName {
+  display: block;
+}
