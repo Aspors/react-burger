@@ -4,7 +4,7 @@ import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import Modal from "../modal/modal";
 import OrderDetails from "../order-details/order-details";
 import MenuWrapper from "./menu-wrapper";
-import Menu from "./menu";
+import Menu from "./burger-constructor-menu";
 import Total from "./total";
 import useNormaService from "../../services/useNormaService";
 import { CartDataContext } from "../../contexts/cartDataContext";

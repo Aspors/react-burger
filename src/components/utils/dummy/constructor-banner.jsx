@@ -1,19 +1,13 @@
 import React from "react";
+import stylesConstructorBanner from "./constructor-banner.module.css";
+import { BANNER_TEXT } from "@consts/dummy-consts";
 
 const ConstructorBanner = () => {
   return (
-    <div
-      style={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        width: "100%",
-        paddingLeft: 10,
-        height: 200,
-      }}
-      className="constructor-banner text text_type_main-medium"
-    >
-      Выберите начинку
+    <div className={stylesConstructorBanner["constructor-banner"]}>
+      <span className="constructor-banner text text_type_main-medium">
+        {BANNER_TEXT}
+      </span>
     </div>
   );
 };

@@ -1,13 +1,13 @@
 import React, { memo, useContext } from "react";
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import { CartDataContext } from "../../contexts/cartDataContext";
-import { MENU_TYPE } from "../../utils/consts/common-consts";
+import PropTypes from "prop-types";
 import Dummy from "../utils/dummy/dummy";
+import { MENU_TYPE } from "../../utils/consts/common-consts";
 
 const MenuWrapper = memo(({ children }) => {
   const { cart } = useContext(CartDataContext);
-  const bunItem = cart.find(({ type }) => type === MENU_TYPE.BUN);
-  const bun = bunItem ? bunItem : null;
+  const bun = cart.find(({ type }) => type === MENU_TYPE.BUN);
 
   const EmptyBun = ({ type }) => {
     return (
@@ -40,5 +40,9 @@ const MenuWrapper = memo(({ children }) => {
     </>
   );
 });
+
+MenuWrapper.propTypes = {
+  children: PropTypes.element,
+};
 
 export default MenuWrapper;

@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
 import appStyles from "./App.module.css";
 import AppHeader from "../app-header/app-header";
-import BurgerIngredients from "../burger-ingredients";
-import BurgerConstructor from "../burger-constructor";
+import BurgerIngredients from "../burger-ingredients/burger-ingredients";
+import BurgerConstructor from "../burger-constructor/burger-constructor";
 import useNormaService from "../../services/useNormaService";
 import { CartDataContext } from "../../contexts/cartDataContext";
 

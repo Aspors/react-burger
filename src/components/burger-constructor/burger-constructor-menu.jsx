@@ -1,4 +1,4 @@
-import React, { memo, useContext } from "react";
+import React, { memo, useMemo, useContext } from "react";
 import burgerConstructorStyles from "./burger-constructor.module.css";
 import {
   DragIcon,
@@ -16,14 +16,17 @@ const Menu = memo(() => {
     setCart(newCart);
   };
 
-  const isIngredientExists = cart.find((item) => item.type !== MENU_TYPE.BUN);
+  const isIngredientExists = useMemo(
+    () => cart.find((item) => item.type !== MENU_TYPE.BUN),
+    [cart]
+  );
 
   const ConstructorList = () => {
     return cart.map(({ type, key, name, price, image }) => {
       if (type === MENU_TYPE.BUN) return null;
       return (
         <li
-          style={{ display: "flex", alignItems: "center", gap: "10px" }}
+          className={burgerConstructorStyles["constructor__menu-list"]}
           key={key}
         >
           <DragIcon type="primary" />

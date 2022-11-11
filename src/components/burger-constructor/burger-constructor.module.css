@@ -9,6 +9,12 @@
     padding: 16px 8px 16px 0;
 }
 
+.constructor__menu-list {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
 .constructor__total {
     margin-top: 40px;
     display: flex;

@@ -20,7 +20,7 @@ import Modal from "../modal/modal";
 import IngredintDetails from "../ingredient-details/ingredient-details";
 import { MODAL } from "../../utils/consts/headers-consts";
 import { CartDataContext } from "../../contexts/cartDataContext";
-import { addItem, changeItems } from "../utils/functions/cart-functions";
+import { addItem, changeItems } from "../utils/tools/cart-functions";
 
 const SelectableParts = memo(
   forwardRef(({ data, type }, ref) => {
@@ -119,9 +119,8 @@ const SelectableParts = memo(
 );
 
 SelectableParts.propTypes = {
-  data: PropTypes.arrayOf(goodsItemTypes),
-  type: PropTypes.string,
-  cart: PropTypes.arrayOf(goodsItemTypes),
+  data: PropTypes.arrayOf(goodsItemTypes).isRequired,
+  type: PropTypes.string.isRequired,
 };
 
 export default SelectableParts;
