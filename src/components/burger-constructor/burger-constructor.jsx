@@ -1,95 +1,61 @@
-import React, { memo, useCallback, useState } from "react";
-import {
-  ConstructorElement,
-  DragIcon,
-  Button,
-  CurrencyIcon,
-} from "@ya.praktikum/react-developer-burger-ui-components";
-import buregerConstructorStyles from "./burger-constructor.module.css";
-import { MENU_TYPE } from "../../utils/consts/common-consts";
+import React, { memo, useCallback, useContext, useState } from "react";
 import { BUTTON } from "../../utils/consts/buttons-text";
-import PropTypes from "prop-types";
-import { goodsItemTypes } from "../../utils/types/common-types";
+import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import Modal from "../modal/modal";
 import OrderDetails from "../order-details/order-details";
+import MenuWrapper from "./menu-wrapper";
+import Menu from "./burger-constructor-menu";
+import Total from "./total";
+import useNormaService from "../../services/useNormaService";
+import { CartDataContext } from "../../contexts/cartDataContext";
 
-const BurgerConstructor = memo((props) => {
+const BurgerConstructor = memo(() => {
   const [modalActive, setModalActive] = useState(false);
-  const { cart } = props;
-  const bun = cart.find((item) => item.type === MENU_TYPE.BUN);
+  const { sendOrder, loading, error } = useNormaService();
+  const [orderId, setOrderId] = useState();
+  const { cart } = useContext(CartDataContext);
   const handleShowModal = useCallback(() => {
     setModalActive((modalActive) => !modalActive);
   }, []);
+  const handleOrderSubmit = useCallback(
+    (e) => {
+      e.preventDefault();
+      const formData = cart.map((item) => item._id);
+      sendOrder(formData).then((res) => setOrderId(res.order.number));
+      handleShowModal();
+    },
+    // eslint-disable-next-line
+    [cart]
+  );
 
-  function handleOrderSubmit(e) {
-    e.preventDefault();
-    handleShowModal();
-  }
   return (
     <section className="pt-15 pl-3">
-      <div className="pl-8 pr-3">
-        <ConstructorElement
-          type="top"
-          isLocked
-          text={bun.name}
-          price={bun.price}
-          thumbnail={bun.image}
-        />
-      </div>
-      <ul className={buregerConstructorStyles.constructor__menu}>
-        {cart.map(({ name, price, image, type }, index) => {
-          if (type === MENU_TYPE.BUN) return null;
-
-          return (
-            <li
-              style={{ display: "flex", alignItems: "center", gap: "10px" }}
-              key={index}>
-              <DragIcon />
-              <ConstructorElement
-                key={index}
-                text={name}
-                price={price}
-                thumbnail={image}
-              />
-            </li>
-          );
-        })}
-      </ul>
-      <div className="pl-8 pr-3">
-        <ConstructorElement
-          type="bottom"
-          isLocked
-          text={bun.name}
-          price={bun.price}
-          thumbnail={bun.image}
-        />
-      </div>
-      <div className={buregerConstructorStyles.constructor__total}>
-        <span
-          style={{ display: "flex", gap: 8 }}
-          className="text text_type_digits-medium">
-          610 <CurrencyIcon type="primary" />
-        </span>
+      <MenuWrapper>
+        <Menu />
+      </MenuWrapper>
+      <Total>
         <Button
           onClick={(e) => handleOrderSubmit(e)}
           disabled={modalActive}
           htmlType="submit"
           type="primary"
-          size="medium">
+          size="medium"
+        >
           {BUTTON.SEND}
         </Button>
-      </div>
+      </Total>
       {modalActive && (
         <Modal handleShowModal={handleShowModal}>
-          <OrderDetails handleShowModal={handleShowModal} />
+          <OrderDetails
+            loading={loading}
+            error={error}
+            orderNumber={orderId}
+            handleShowModal={handleShowModal}
+          />
         </Modal>
       )}
     </section>
   );
 });
-
-BurgerConstructor.propTypes = {
-  cart: PropTypes.arrayOf(goodsItemTypes),
-};
 
 export default BurgerConstructor;

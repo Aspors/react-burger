@@ -14,7 +14,9 @@ export const useHttp = () => {
       setLoading(true);
 
       try {
-        const response = await fetch(url, { method, body, headers });
+        const response = await fetch(url, { method, body, headers }).catch(
+          (e) => console.log(e)
+        );
 
         if (!response.ok) {
           throw new Error(`Could not fetch ${url}, status: ${response.status}`);
