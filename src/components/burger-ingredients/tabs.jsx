@@ -1,13 +1,18 @@
-import React, { memo } from "react";
+import React, { memo, useCallback } from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import {
   MENU_TYPE,
   MENU_TYPE_TRANSLATION,
 } from "../../utils/consts/common-consts";
-import PropTypes from "prop-types";
-import { refType } from "../../utils/types/common-types";
+import { useSelector } from "react-redux";
 
-const Tabs = memo(({ onTabClick, refs, current }) => {
+const Tabs = memo(({ refs }) => {
+  const { activeTab } = useSelector((store) => store.ingredients);
+
+  const onTabClick = useCallback((value, ref) => {
+    ref.current.scrollIntoView({ behavior: "smooth" });
+  }, []);
+
   const tabData = [
     { name: MENU_TYPE.BUN, ref: refs.ref_bun },
     { name: MENU_TYPE.SAUCE, ref: refs.ref_sauce },
@@ -21,7 +26,7 @@ const Tabs = memo(({ onTabClick, refs, current }) => {
           <Tab
             key={key}
             value={name}
-            active={current === name}
+            active={activeTab === name}
             onClick={(value) => onTabClick(value, ref)}
           >
             {MENU_TYPE_TRANSLATION[name]}
@@ -31,11 +36,5 @@ const Tabs = memo(({ onTabClick, refs, current }) => {
     </div>
   );
 });
-
-Tabs.propTypes = {
-  onTabClick: PropTypes.func.isRequired,
-  refs: PropTypes.objectOf(refType),
-  current: PropTypes.string.isRequired,
-};
 
 export default Tabs;

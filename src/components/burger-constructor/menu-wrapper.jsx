@@ -1,13 +1,11 @@
-import React, { memo, useContext } from "react";
+import React, { memo } from "react";
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
-import { CartDataContext } from "../../contexts/cartDataContext";
 import PropTypes from "prop-types";
 import Dummy from "../utils/dummy/dummy";
-import { MENU_TYPE } from "../../utils/consts/common-consts";
+import { useSelector } from "react-redux";
 
 const MenuWrapper = memo(({ children }) => {
-  const { cart } = useContext(CartDataContext);
-  const bun = cart.find(({ type }) => type === MENU_TYPE.BUN);
+  const { bun } = useSelector((store) => store.constructor);
 
   const EmptyBun = ({ type }) => {
     return (

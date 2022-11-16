@@ -3,21 +3,36 @@ import PropTypes, { objectOf } from "prop-types";
 import buregerIngredientsStyles from "./burger-ingredients.module.css";
 import { MENU_TYPE } from "@consts/common-consts";
 import { refType } from "@types/common-types";
+import { useDispatch, useSelector } from "react-redux";
+import { CHANGE_TAB } from "../../services/actions/burger-ingredients/burger-ingrediens";
 
 const BurgerIngredientsMenu = memo(
-  forwardRef(({ setCurrentTab, children }, refs) => {
+  forwardRef(({ children }, refs) => {
     const { ref_sauce, ref_main } = refs;
+    const dispatch = useDispatch();
+    const { activeTab } = useSelector((store) => store.ingredients);
+
     const handleScroll = (e) => {
       const sauceOffset = ref_sauce.current.getBoundingClientRect().top;
       const mainOffset = ref_main.current.getBoundingClientRect().bottom;
       const menuY = e.currentTarget.scrollTop;
 
-      if (sauceOffset > menuY) {
-        setCurrentTab(MENU_TYPE.BUN);
-      } else if (mainOffset > menuY) {
-        setCurrentTab(MENU_TYPE.SAUCE);
-      } else {
-        setCurrentTab(MENU_TYPE.MAIN);
+      if (sauceOffset > menuY && activeTab !== MENU_TYPE.BUN) {
+        dispatch({ type: CHANGE_TAB, payload: MENU_TYPE.BUN });
+      }
+      if (
+        mainOffset > menuY &&
+        sauceOffset < menuY &&
+        activeTab !== MENU_TYPE.SAUCE
+      ) {
+        dispatch({ type: CHANGE_TAB, payload: MENU_TYPE.SAUCE });
+      }
+      if (
+        mainOffset < menuY &&
+        activeTab !== MENU_TYPE.MAIN &&
+        activeTab !== MENU_TYPE.MAIN
+      ) {
+        dispatch({ type: CHANGE_TAB, payload: MENU_TYPE.MAIN });
       }
     };
     return (

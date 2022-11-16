@@ -23,6 +23,11 @@
     gap: 40px;
 }
 
+.constructor__total span {
+    display: flex;
+    gap: 8px;
+}
+
 .constructor__total svg {
     width: 36px;
     height: 36px;
