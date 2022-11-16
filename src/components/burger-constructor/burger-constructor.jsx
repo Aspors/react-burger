@@ -8,6 +8,7 @@ import Menu from "./burger-constructor-menu";
 import Total from "./total";
 import { useSelector, useDispatch } from "react-redux";
 import {
+  CLEAR_CART,
   sendOrder,
   TOGGLE_CONSTRUCTOR_MODAL,
 } from "../../services/actions/burger-constructor/burger-constructor";
@@ -21,6 +22,12 @@ const BurgerConstructor = memo(() => {
   const handleShowModal = useCallback(() => {
     dispatch({ type: TOGGLE_CONSTRUCTOR_MODAL });
   }, [dispatch]);
+  const handleCloseModal = () => {
+    dispatch({ type: CLEAR_CART });
+
+    handleShowModal();
+  };
+
   const handleOrderSubmit = useCallback(
     (e) => {
       e.preventDefault();
@@ -53,8 +60,8 @@ const BurgerConstructor = memo(() => {
         </Button>
       </Total>
       {isModalActive && (
-        <Modal handleShowModal={handleShowModal}>
-          <OrderDetails handleShowModal={handleShowModal} />
+        <Modal handleShowModal={handleCloseModal}>
+          <OrderDetails handleShowModal={handleCloseModal} />
         </Modal>
       )}
     </section>

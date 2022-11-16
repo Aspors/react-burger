@@ -7,6 +7,7 @@ import {
   SEND_ORDER_FAILED,
   TOGGLE_CONSTRUCTOR_MODAL,
   NEW_CART_ORDER,
+  CLEAR_CART,
 } from "../../actions/burger-constructor/burger-constructor";
 import { _ERROR, _IDLE, _LOADING } from "../../machine/machine";
 
@@ -39,6 +40,10 @@ export const constructorReducer = (state = initialConstructorState, action) => {
 
     case NEW_CART_ORDER: {
       return { ...state, cart: action.payload };
+    }
+
+    case CLEAR_CART: {
+      return { ...state, cart: [], bun: null };
     }
 
     case SEND_ORDER_REQUEST: {

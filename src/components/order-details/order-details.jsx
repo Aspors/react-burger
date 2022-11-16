@@ -10,6 +10,7 @@ import { _ERROR, _IDLE, _LOADING } from "../../services/machine/machine";
 
 const OrderDetails = ({ handleShowModal }) => {
   const { order, orderStatus } = useSelector((store) => store.constructor);
+
   switch (orderStatus) {
     case _LOADING: {
       return <Spinner />;
