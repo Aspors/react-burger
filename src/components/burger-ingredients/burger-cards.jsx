@@ -1,20 +1,12 @@
 import React, { memo, useCallback, forwardRef } from "react";
 import burgerIngredientsStyles from "./burger-ingredients.module.css";
-import {
-  MENU_TYPE,
-  MENU_TYPE_TRANSLATION,
-} from "../../utils/consts/common-consts";
+import { MENU_TYPE_TRANSLATION } from "../../utils/consts/common-consts";
 import PropTypes from "prop-types";
 import { goodsItemTypes } from "../../utils/types/common-types";
 import Modal from "../modal/modal";
 import IngredintDetails from "../ingredient-details/ingredient-details";
 import { MODAL } from "../../utils/consts/headers-consts";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  ADD_ITEM,
-  SET_BUN,
-} from "../../services/actions/burger-constructor/burger-constructor";
-import { v4 as keyGen } from "uuid";
 import {
   SET_MODAL_ELEMENT,
   TOGGLE_MODAL,
@@ -33,21 +25,10 @@ const BurgerCards = memo(
     const handleItemClick = useCallback(
       (e) => {
         const element = e.currentTarget.attributes["data-key"].value;
-        const foundedElement = data.find((item) => item._id === element);
-        const isBun = foundedElement.type === MENU_TYPE.BUN;
-
-        if (isBun) {
-          dispatch({ type: SET_BUN, payload: foundedElement });
-        } else {
-          dispatch({
-            type: ADD_ITEM,
-            payload: { ...foundedElement, key: keyGen() },
-          });
-        }
         dispatch({ type: SET_MODAL_ELEMENT, payload: element });
         handleShowModal();
       },
-      [dispatch, data, handleShowModal]
+      [dispatch, handleShowModal]
     );
 
     const countItemsAmount = useCallback(
@@ -74,6 +55,7 @@ const BurgerCards = memo(
             const itemsAmount = countItemsAmount(item._id);
             return (
               <BurgerCard
+                key={item._id}
                 item={item}
                 handleItemClick={handleItemClick}
                 bun={bun}
@@ -94,6 +76,9 @@ const BurgerCards = memo(
 
 BurgerCards.propTypes = {
   data: PropTypes.arrayOf(goodsItemTypes).isRequired,
+  cart: PropTypes.arrayOf(goodsItemTypes),
+  isModalActive: PropTypes.bool,
+  bun: PropTypes.oneOfType([PropTypes.object, goodsItemTypes]),
   type: PropTypes.string.isRequired,
 };
 

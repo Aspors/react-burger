@@ -1,48 +1,40 @@
-import React, { memo, useMemo } from "react";
+import React, { memo, useCallback } from "react";
 import burgerConstructorStyles from "./burger-constructor.module.css";
-import {
-  DragIcon,
-  ConstructorElement,
-} from "@ya.praktikum/react-developer-burger-ui-components";
-import { MENU_TYPE } from "../../utils/consts/common-consts";
+
 import ConstructorBanner from "../utils/dummy/constructor-banner";
 import { useDispatch, useSelector } from "react-redux";
-import { DELETE_ITEM } from "../../services/actions/burger-constructor/burger-constructor";
+
+import ConstructorDraggableElement from "./constructor-draggable-element";
+import { NEW_CART_ORDER } from "../../services/actions/burger-constructor/burger-constructor";
 
 const Menu = memo(() => {
   const { cart } = useSelector((store) => store.constructor);
   const dispatch = useDispatch();
-  const handleDelete = (key) => {
-    dispatch({ type: DELETE_ITEM, payload: key });
-  };
+  const moveCard = useCallback(
+    (dragIndex, hoverIndex) => {
+      const dragElement = cart[dragIndex];
+      const newCart = [...cart];
 
-  const isIngredientExists = useMemo(
-    () => cart.find((item) => item.type !== MENU_TYPE.BUN),
-    [cart]
+      newCart.splice(dragIndex, 1);
+      newCart.splice(hoverIndex, 0, dragElement);
+
+      dispatch({ type: NEW_CART_ORDER, payload: newCart });
+    },
+    [cart, dispatch]
   );
-
-  const ConstructorList = () => {
-    return cart.map(({ key, name, price, image }) => {
-      return (
-        <li
-          className={burgerConstructorStyles["constructor__menu-list"]}
-          key={key}
-        >
-          <DragIcon type="primary" />
-          <ConstructorElement
-            text={name}
-            price={price}
-            handleClose={() => handleDelete(key)}
-            thumbnail={image}
-          />
-        </li>
-      );
-    });
-  };
-
-  return isIngredientExists ? (
+  return cart.length !== 0 ? (
     <ul className={burgerConstructorStyles.constructor__menu}>
-      <ConstructorList />
+      {cart.map((item, index) => {
+        return (
+          <ConstructorDraggableElement
+            key={item.key}
+            id={item.key}
+            {...item}
+            moveCard={moveCard}
+            index={index}
+          />
+        );
+      })}
     </ul>
   ) : (
     <ConstructorBanner />

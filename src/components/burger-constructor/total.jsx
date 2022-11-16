@@ -6,10 +6,9 @@ import { useSelector } from "react-redux";
 
 const Total = memo(({ children }) => {
   const { cart, bun } = useSelector((store) => store.constructor);
+
   const total = useMemo(() => {
-    return (
-      cart.reduce((sum, item) => item.price + sum, 0) + bun && bun.price * 2
-    );
+    return cart.reduce((sum, item) => item.price + sum, 0) + (bun && bun.price);
   }, [cart, bun]);
   return (
     <div className={burgerConstructorStyles.constructor__total}>

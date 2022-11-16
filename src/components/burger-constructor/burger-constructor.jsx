@@ -34,6 +34,8 @@ const BurgerConstructor = memo(() => {
     [cart]
   );
 
+  const isButtonDisabled = isModalActive || !cart.length || !bun;
+
   return (
     <section className="pt-15 pl-3">
       <MenuWrapper>
@@ -42,7 +44,7 @@ const BurgerConstructor = memo(() => {
       <Total>
         <Button
           onClick={(e) => handleOrderSubmit(e)}
-          disabled={isModalActive}
+          disabled={isButtonDisabled}
           htmlType="submit"
           type="primary"
           size="medium"

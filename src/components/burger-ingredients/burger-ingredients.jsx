@@ -8,23 +8,49 @@ import Tabs from "./tabs";
 import { setContent } from "../../services/machine/machine";
 import { MENU_TYPE } from "@consts/common-consts";
 import { goodsItemTypes } from "@types/common-types";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { CHANGE_TAB } from "../../services/actions/burger-ingredients/burger-ingrediens";
 
 const BurgerIngredients = memo(() => {
-  const { items, status } = useSelector((store) => store.ingredients);
+  const { items, status, activeTab } = useSelector(
+    (store) => store.ingredients
+  );
+  const dispatch = useDispatch();
 
-  const refs = {
-    ref_bun: useRef(),
-    ref_sauce: useRef(),
-    ref_main: useRef(),
+  const refs = [useRef(), useRef(), useRef()];
+
+  const [ref_bun, ref_sauce, ref_main] = refs;
+
+  const handleScroll = (e) => {
+    const sauceOffset = ref_sauce.current?.getBoundingClientRect().top;
+    const mainOffset = ref_main.current?.getBoundingClientRect().bottom;
+    const menuY = e.currentTarget.scrollTop;
+
+    if (sauceOffset > menuY && activeTab !== MENU_TYPE.BUN) {
+      dispatch({ type: CHANGE_TAB, payload: MENU_TYPE.BUN });
+    }
+    if (
+      mainOffset > menuY &&
+      sauceOffset < menuY &&
+      activeTab !== MENU_TYPE.SAUCE
+    ) {
+      dispatch({ type: CHANGE_TAB, payload: MENU_TYPE.SAUCE });
+    }
+    if (
+      mainOffset < menuY &&
+      activeTab !== MENU_TYPE.MAIN &&
+      activeTab !== MENU_TYPE.MAIN
+    ) {
+      dispatch({ type: CHANGE_TAB, payload: MENU_TYPE.MAIN });
+    }
   };
 
   const View = () => {
     return (
       <>
-        <BurgerCards ref={refs.ref_bun} data={items} type={MENU_TYPE.BUN} />
-        <BurgerCards ref={refs.ref_sauce} data={items} type={MENU_TYPE.SAUCE} />
-        <BurgerCards ref={refs.ref_main} data={items} type={MENU_TYPE.MAIN} />
+        <BurgerCards ref={ref_bun} data={items} type={MENU_TYPE.BUN} />
+        <BurgerCards ref={ref_sauce} data={items} type={MENU_TYPE.SAUCE} />
+        <BurgerCards ref={ref_main} data={items} type={MENU_TYPE.MAIN} />
       </>
     );
   };
@@ -35,13 +61,18 @@ const BurgerIngredients = memo(() => {
     <section className={burgerIngredientsStyles.buildBurger}>
       <h1 className="text text_type_main-large mb-5">{HEADER.BUILD_BURGER}</h1>
       <Tabs refs={refs} />
-      <BurgerIngredientsMenu ref={refs}>{content}</BurgerIngredientsMenu>
+      <BurgerIngredientsMenu handleScroll={handleScroll}>
+        {content}
+      </BurgerIngredientsMenu>
     </section>
   );
 });
 
 BurgerIngredients.propTypes = {
   data: PropTypes.arrayOf(goodsItemTypes),
+  items: PropTypes.arrayOf(goodsItemTypes),
+  status: PropTypes.string,
+  activeTab: PropTypes.string,
 };
 
 export default BurgerIngredients;

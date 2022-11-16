@@ -4,6 +4,8 @@ export const MENU_TYPE = {
   MAIN: "main",
 };
 
+export const CONSTRUCTOR_ELEMENT = "CONSTRUCTOR_ELEMENT";
+
 export const MENU_TYPE_TRANSLATION = {
   bun: "Булки",
   sauce: "Соусы",

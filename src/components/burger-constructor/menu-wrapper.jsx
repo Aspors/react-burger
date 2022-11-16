@@ -1,40 +1,46 @@
 import React, { memo } from "react";
-import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
-import Dummy from "../utils/dummy/dummy";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { useDrop } from "react-dnd";
+import {
+  CONSTRUCTOR_ELEMENT,
+  MENU_TYPE,
+} from "../../utils/consts/common-consts";
+import {
+  ADD_ITEM,
+  SET_BUN,
+} from "../../services/actions/burger-constructor/burger-constructor";
+import { v4 as keyGen } from "uuid";
+import Bun from "./bun";
 
 const MenuWrapper = memo(({ children }) => {
   const { bun } = useSelector((store) => store.constructor);
+  const dispatch = useDispatch();
+  const [, dropRef] = useDrop({
+    accept: [MENU_TYPE.SAUCE, MENU_TYPE.MAIN],
+    drop(item) {
+      handleDrop(item);
+    },
+  });
 
-  const EmptyBun = ({ type }) => {
-    return (
-      <div className="pl-8 pr-3">
-        <Dummy type={type} text={"Выберите булку"} />
-      </div>
-    );
-  };
+  const handleDrop = (element) => {
+    const isBun = element.type === MENU_TYPE.BUN;
 
-  const Bun = ({ type }) => {
-    if (!bun) return <EmptyBun type={type} />;
-    return (
-      <div className="pl-8 pr-3">
-        <ConstructorElement
-          type={type}
-          isLocked
-          text={bun.name}
-          price={bun.price}
-          thumbnail={bun.image}
-        />
-      </div>
-    );
+    if (isBun) {
+      dispatch({ type: SET_BUN, payload: element });
+    } else {
+      dispatch({
+        type: ADD_ITEM,
+        payload: { ...element, type: CONSTRUCTOR_ELEMENT, key: keyGen() },
+      });
+    }
   };
 
   return (
     <>
-      <Bun type="top" />
-      {children}
-      <Bun type="bottom" />
+      <Bun type="top" bun={bun} />
+      <div ref={dropRef}>{children}</div>
+      <Bun type="bottom" bun={bun} />
     </>
   );
 });
