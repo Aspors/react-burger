@@ -1,4 +1,4 @@
-import burgerIngredientsStyles from "./burger-ingredients.module.css";
+import burgerCardStyles from "./burger-card.module.css";
 import {
   Counter,
   CurrencyIcon,
@@ -27,7 +27,7 @@ const BurgerCard = memo(({ handleItemClick, item, bun, itemsAmount }) => {
         onClick={(e) => handleItemClick(e)}
         tabIndex={0}
         data-key={_id}
-        className={burgerIngredientsStyles.menu__item}
+        className={burgerCardStyles.menu__item}
       >
         {itemsAmount !== 0 && <Counter count={itemsAmount} />}
         {bun && bun._id === item._id ? <Counter count={2} /> : null}
@@ -35,7 +35,7 @@ const BurgerCard = memo(({ handleItemClick, item, bun, itemsAmount }) => {
         <span
           className={
             "text text_type_digits-default " +
-            burgerIngredientsStyles["menu__item-price"]
+            burgerCardStyles["menu__item-price"]
           }
         >
           {price}

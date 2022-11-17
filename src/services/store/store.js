@@ -1,8 +1,12 @@
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
-import { burgerIngredientsReducer } from "../reducers/burger-ingredients/burger-ingredients";
-import { constructorReducer } from "../reducers/burger-constructor/burger-constructor";
-import { _IDLE } from "../machine/machine";
-import { MENU_TYPE } from "../../utils/consts/common-consts";
+import {
+  burgerIngredientsReducer,
+  initialBurgerState,
+} from "../reducers/burger-ingredients/burger-ingredients";
+import {
+  constructorReducer,
+  initialConstructorState,
+} from "../reducers/burger-constructor/burger-constructor";
 
 const rootReducer = combineReducers({
   ingredients: burgerIngredientsReducer,
@@ -10,25 +14,8 @@ const rootReducer = combineReducers({
 });
 
 const preloadedState = {
-  ingredients: {
-    status: _IDLE,
-
-    items: [],
-
-    activeTab: MENU_TYPE.BUN,
-
-    modalElement: null,
-    isModalActive: false,
-  },
-  constructor: {
-    cart: [],
-    bun: null,
-
-    orderStatus: _IDLE,
-    order: {},
-
-    isModalActive: false,
-  },
+  ingredients: initialBurgerState,
+  constructor: initialConstructorState,
 };
 
 const store = configureStore({

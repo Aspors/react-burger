@@ -1,17 +1,17 @@
 import React, { memo, useCallback, forwardRef } from "react";
-import burgerIngredientsStyles from "./burger-ingredients.module.css";
-import { MENU_TYPE_TRANSLATION } from "../../utils/consts/common-consts";
+import burgerCardsStyles from "./burger-cards.module.css";
+import { MENU_TYPE_TRANSLATION } from "../../../utils/consts/common-consts";
 import PropTypes from "prop-types";
-import { goodsItemTypes } from "../../utils/types/common-types";
-import Modal from "../modal/modal";
-import IngredintDetails from "../ingredient-details/ingredient-details";
-import { MODAL } from "../../utils/consts/headers-consts";
+import { goodsItemTypes } from "../../../utils/types/common-types";
+import Modal from "../../modal/modal";
+import IngredintDetails from "../../modal/ingredient-details/ingredient-details";
+import { MODAL } from "../../../utils/consts/headers-consts";
 import { useDispatch, useSelector } from "react-redux";
 import {
   SET_MODAL_ELEMENT,
   TOGGLE_MODAL,
-} from "../../services/actions/burger-ingredients/burger-ingrediens";
-import BurgerCard from "./burger-card";
+} from "../../../services/actions/burger-ingredients/burger-ingrediens";
+import BurgerCard from "../burger-card/burger-card";
 
 const BurgerCards = memo(
   forwardRef(({ data, type }, ref) => {
@@ -43,13 +43,12 @@ const BurgerCards = memo(
         <span
           ref={ref}
           className={
-            "text text_type_main-medium mb-6 " +
-            burgerIngredientsStyles.partsName
+            "text text_type_main-medium mb-6 " + burgerCardsStyles.partsName
           }
         >
           {MENU_TYPE_TRANSLATION[type]}
         </span>
-        <ul className={burgerIngredientsStyles["menu__items"]}>
+        <ul className={burgerCardsStyles["menu__items"]}>
           {data.map((item) => {
             if (item.type !== type) return null;
             const itemsAmount = countItemsAmount(item._id);

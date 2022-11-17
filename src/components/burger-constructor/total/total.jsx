@@ -1,5 +1,5 @@
 import React, { memo, useMemo } from "react";
-import burgerConstructorStyles from "./burger-constructor.module.css";
+import totalStyles from "./total.module.css";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
@@ -11,7 +11,7 @@ const Total = memo(({ children }) => {
     return cart.reduce((sum, item) => item.price + sum, 0) + (bun && bun.price);
   }, [cart, bun]);
   return (
-    <div className={burgerConstructorStyles.constructor__total}>
+    <div className={totalStyles.constructor__total}>
       <span className="text text_type_digits-medium">
         {total}
         <CurrencyIcon type="primary" />

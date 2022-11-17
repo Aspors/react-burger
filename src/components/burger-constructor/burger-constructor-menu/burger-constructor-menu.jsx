@@ -1,11 +1,11 @@
 import React, { memo, useCallback } from "react";
-import burgerConstructorStyles from "./burger-constructor.module.css";
+import menuStyles from "./burger-constructor-menu.module.css";
 
-import ConstructorBanner from "../utils/dummy/constructor-banner";
+import ConstructorBanner from "../../utils/dummy/constructor-banner";
 import { useDispatch, useSelector } from "react-redux";
 
-import ConstructorDraggableElement from "./constructor-draggable-element";
-import { NEW_CART_ORDER } from "../../services/actions/burger-constructor/burger-constructor";
+import ConstructorDraggableElement from "../constructor-draggable-element/constructor-draggable-element";
+import { NEW_CART_ORDER } from "../../../services/actions/burger-constructor/burger-constructor";
 
 const Menu = memo(() => {
   const { cart } = useSelector((store) => store.constructor);
@@ -23,7 +23,7 @@ const Menu = memo(() => {
     [cart, dispatch]
   );
   return cart.length !== 0 ? (
-    <ul className={burgerConstructorStyles.constructor__menu}>
+    <ul className={menuStyles.constructor__menu}>
       {cart.map((item, index) => {
         return (
           <ConstructorDraggableElement

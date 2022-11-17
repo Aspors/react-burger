@@ -1,21 +1,19 @@
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import React, { forwardRef } from "react";
-import Dummy from "../utils/dummy/dummy";
+import Dummy from "../../utils/dummy/dummy";
 import { useDrop } from "react-dnd";
-import { MENU_TYPE } from "../../utils/consts/common-consts";
-import { SET_BUN } from "../../services/actions/burger-constructor/burger-constructor";
+import { MENU_TYPE } from "../../../utils/consts/common-consts";
+import { SET_BUN } from "../../../services/actions/burger-constructor/burger-constructor";
 import { useDispatch } from "react-redux";
-import constructorStyles from "./burger-constructor.module.css";
-import { DUMMY_TEXT } from "../../utils/consts/dummy-consts";
+import bunStyles from "./bun.module.css";
+import { DUMMY_TEXT } from "../../../utils/consts/dummy-consts";
 
 const EmptyBun = forwardRef(({ type, isHover }, ref) => {
   return (
     <div
       ref={ref}
       onDrop={(e) => e.preventDefault()}
-      className={`pl-8 pr-3 ${
-        isHover && constructorStyles["active_drop-target"]
-      }`}
+      className={`pl-8 pr-3 ${isHover && bunStyles["active_drop-target"]}`}
     >
       <Dummy type={type} text={DUMMY_TEXT} />
     </div>
@@ -38,9 +36,7 @@ const Bun = ({ type, bun }) => {
     <div
       ref={ref}
       onDrop={(e) => e.preventDefault()}
-      className={`pl-8 pr-3 ${
-        isHover && constructorStyles["active_drop-target"]
-      }`}
+      className={`pl-8 pr-3 ${isHover && bunStyles["active_drop-target"]}`}
     >
       <ConstructorElement
         type={type}

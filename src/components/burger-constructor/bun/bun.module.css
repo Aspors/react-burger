@@ -1,0 +1,4 @@
+.active_drop-target {
+    border: solid 3px rgba(55, 2, 137, .9);
+    border-radius: 33px;
+}

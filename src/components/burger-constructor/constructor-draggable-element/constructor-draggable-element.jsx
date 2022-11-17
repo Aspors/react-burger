@@ -1,10 +1,10 @@
-import burgerConstructorStyles from "./burger-constructor.module.css";
+import constructorDraggableStyles from "./constructor-draggable-element.module.css";
 import {
   ConstructorElement,
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import React, { memo, useRef } from "react";
-import { DELETE_ITEM } from "../../services/actions/burger-constructor/burger-constructor";
+import { DELETE_ITEM } from "../../../services/actions/burger-constructor/burger-constructor";
 import { useDispatch } from "react-redux";
 import { useDrag, useDrop } from "react-dnd";
 
@@ -69,7 +69,7 @@ const ConstructorDraggableElement = memo(
     return (
       <li
         draggable
-        className={burgerConstructorStyles["constructor__menu-list"]}
+        className={constructorDraggableStyles["constructor__menu-list"]}
         ref={ingridientRef}
         style={{ opacity, cursor }}
         data-handler-id={handlerId}

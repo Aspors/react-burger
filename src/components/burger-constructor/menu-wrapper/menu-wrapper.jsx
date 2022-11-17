@@ -5,13 +5,13 @@ import { useDrop } from "react-dnd";
 import {
   CONSTRUCTOR_ELEMENT,
   MENU_TYPE,
-} from "../../utils/consts/common-consts";
+} from "../../../utils/consts/common-consts";
 import {
   ADD_ITEM,
   SET_BUN,
-} from "../../services/actions/burger-constructor/burger-constructor";
+} from "../../../services/actions/burger-constructor/burger-constructor";
 import { v4 as keyGen } from "uuid";
-import Bun from "./bun";
+import Bun from "../bun/bun";
 
 const MenuWrapper = memo(({ children }) => {
   const { bun } = useSelector((store) => store.constructor);

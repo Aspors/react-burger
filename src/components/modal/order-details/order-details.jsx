@@ -1,12 +1,12 @@
 import React from "react";
-import AcceptButton from "../utils/buttons/accept-button";
-import { ORDER_DETAILS_TXT } from "../../utils/consts/order-details-consts";
+import AcceptButton from "../../utils/buttons/accept-button";
+import { ORDER_DETAILS_TXT } from "../../../utils/consts/order-details-consts";
 import orderDetailsStyles from "./order-details.module.css";
 import PropTypes from "prop-types";
-import Spinner from "../utils/spinner/spinner";
-import ErrorMessage from "../utils/error-message/error-message";
+import Spinner from "../../utils/spinner/spinner";
+import ErrorMessage from "../../utils/error-message/error-message";
 import { useSelector } from "react-redux";
-import { _ERROR, _IDLE, _LOADING } from "../../services/machine/machine";
+import { _ERROR, _IDLE, _LOADING } from "../../../services/machine/machine";
 
 const OrderDetails = ({ handleShowModal }) => {
   const { order, orderStatus } = useSelector((store) => store.constructor);

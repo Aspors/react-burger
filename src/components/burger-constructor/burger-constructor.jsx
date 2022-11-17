@@ -2,10 +2,10 @@ import React, { memo, useCallback } from "react";
 import { BUTTON } from "../../utils/consts/buttons-text";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import Modal from "../modal/modal";
-import OrderDetails from "../order-details/order-details";
-import MenuWrapper from "./menu-wrapper";
-import Menu from "./burger-constructor-menu";
-import Total from "./total";
+import OrderDetails from "../modal/order-details/order-details";
+import MenuWrapper from "./menu-wrapper/menu-wrapper";
+import Menu from "./burger-constructor-menu/burger-constructor-menu";
+import Total from "./total/total";
 import { useSelector, useDispatch } from "react-redux";
 import {
   CLEAR_CART,

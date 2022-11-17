@@ -10,7 +10,7 @@ import {
 import { _ERROR, _IDLE, _LOADING } from "../../machine/machine";
 import { MENU_TYPE } from "../../../utils/consts/common-consts";
 
-const initialBurgerState = {
+export const initialBurgerState = {
   status: _IDLE,
 
   items: [],
