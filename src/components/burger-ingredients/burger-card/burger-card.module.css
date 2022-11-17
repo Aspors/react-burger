@@ -1,0 +1,17 @@
+.menu__item {
+    display: flex;
+    position: relative;
+    align-items: center;
+    flex-direction: column;
+    cursor: pointer;
+    gap: 4px;
+    width: 272px;
+    height: 208px;
+}
+
+.menu__item-price {
+    text-align: center;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+}

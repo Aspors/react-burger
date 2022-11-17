@@ -1,32 +1,30 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import appStyles from "./App.module.css";
 import AppHeader from "../app-header/app-header";
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
-import useNormaService from "../../services/useNormaService";
-import { CartDataContext } from "../../contexts/cartDataContext";
+import { useDispatch } from "react-redux";
+import { getBurgerIngredients } from "../../services/actions/burger-ingredients/burger-ingrediens";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 
 const App = () => {
-  const { getAllIngredients, loading, error } = useNormaService();
-  const initialCart = useContext(CartDataContext);
-  const [data, setData] = useState([]);
-  const [cart, setCart] = useState(initialCart);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    getAllIngredients().then((res) => setData(res.data));
-    // eslint-disable-next-line
-  }, []);
+    dispatch(getBurgerIngredients());
+  }, [dispatch]);
 
   return (
     <div className="App">
       <AppHeader />
       <main>
-        <CartDataContext.Provider value={{ cart, setCart }}>
-          <div className={appStyles.container}>
-            <BurgerIngredients data={data} loading={loading} error={error} />
+        <div className={appStyles.container}>
+          <DndProvider backend={HTML5Backend}>
+            <BurgerIngredients />
             <BurgerConstructor />
-          </div>
-        </CartDataContext.Provider>
+          </DndProvider>
+        </div>
       </main>
     </div>
   );

@@ -1,56 +1,67 @@
-import React, { useState, useCallback, memo, useRef } from "react";
+import React, { memo, useRef } from "react";
 import burgerIngredientsStyles from "./burger-ingredients.module.css";
 import PropTypes from "prop-types";
 import { HEADER } from "@consts/headers-consts";
-import BurgerIngredientsMenu from "./burger-ingredients-menu";
-import Spinner from "../utils/spinner/spinner";
-import SelectableParts from "./selectable-parts";
-import ErrorMessage from "../utils/error-message/error-message";
-import Tabs from "./tabs";
+import BurgerIngredientsMenu from "./burger-ingredients-menu/burger-ingredients-menu";
+import BurgerCards from "./burger-cards/burger-cards";
+import Tabs from "./tabs/tabs";
+import { setContent } from "../../services/machine/machine";
 import { MENU_TYPE } from "@consts/common-consts";
 import { goodsItemTypes } from "@types/common-types";
+import { useDispatch, useSelector } from "react-redux";
+import { CHANGE_TAB } from "../../services/actions/burger-ingredients/burger-ingrediens";
 
-const BurgerIngredients = memo(({ data, loading, error }) => {
-  const [currentTab, setCurrentTab] = useState(MENU_TYPE.BUN);
-  const refs = {
-    ref_bun: useRef(),
-    ref_sauce: useRef(),
-    ref_main: useRef(),
+const BurgerIngredients = memo(() => {
+  const { items, status, activeTab } = useSelector(
+    (store) => store.ingredients
+  );
+  const dispatch = useDispatch();
+
+  const refs = [useRef(), useRef(), useRef()];
+
+  const [ref_bun, ref_sauce, ref_main] = refs;
+
+  const handleScroll = (e) => {
+    const sauceOffset = ref_sauce.current?.getBoundingClientRect().top;
+    const mainOffset = ref_main.current?.getBoundingClientRect().bottom;
+    const menuY = e.currentTarget.scrollTop;
+
+    if (sauceOffset > menuY && activeTab !== MENU_TYPE.BUN) {
+      dispatch({ type: CHANGE_TAB, payload: MENU_TYPE.BUN });
+    }
+    if (
+      mainOffset > menuY &&
+      sauceOffset < menuY &&
+      activeTab !== MENU_TYPE.SAUCE
+    ) {
+      dispatch({ type: CHANGE_TAB, payload: MENU_TYPE.SAUCE });
+    }
+    if (
+      mainOffset < menuY &&
+      activeTab !== MENU_TYPE.MAIN &&
+      activeTab !== MENU_TYPE.MAIN
+    ) {
+      dispatch({ type: CHANGE_TAB, payload: MENU_TYPE.MAIN });
+    }
   };
 
-  const onTabClick = useCallback((value, ref) => {
-    ref.current.scrollIntoView({ behavior: "smooth" });
-  }, []);
-
-  const SelectablePartsList = () => {
+  const View = () => {
     return (
       <>
-        <SelectableParts ref={refs.ref_bun} data={data} type={MENU_TYPE.BUN} />
-        <SelectableParts
-          ref={refs.ref_sauce}
-          data={data}
-          type={MENU_TYPE.SAUCE}
-        />
-        <SelectableParts
-          ref={refs.ref_main}
-          data={data}
-          type={MENU_TYPE.MAIN}
-        />
+        <BurgerCards ref={ref_bun} data={items} type={MENU_TYPE.BUN} />
+        <BurgerCards ref={ref_sauce} data={items} type={MENU_TYPE.SAUCE} />
+        <BurgerCards ref={ref_main} data={items} type={MENU_TYPE.MAIN} />
       </>
     );
   };
 
-  const content = !(loading || error) && <SelectablePartsList />;
-  const spinner = loading && !error && <Spinner />;
-  const errorMessage = error && !loading && <ErrorMessage />;
+  const content = setContent(status, View);
 
   return (
     <section className={burgerIngredientsStyles.buildBurger}>
       <h1 className="text text_type_main-large mb-5">{HEADER.BUILD_BURGER}</h1>
-      <Tabs refs={refs} onTabClick={onTabClick} current={currentTab} />
-      <BurgerIngredientsMenu ref={refs} setCurrentTab={setCurrentTab}>
-        {spinner}
-        {errorMessage}
+      <Tabs refs={refs} />
+      <BurgerIngredientsMenu handleScroll={handleScroll}>
         {content}
       </BurgerIngredientsMenu>
     </section>
@@ -58,9 +69,10 @@ const BurgerIngredients = memo(({ data, loading, error }) => {
 });
 
 BurgerIngredients.propTypes = {
-  data: PropTypes.arrayOf(goodsItemTypes).isRequired,
-  loading: PropTypes.bool,
-  error: PropTypes.bool,
+  data: PropTypes.arrayOf(goodsItemTypes),
+  items: PropTypes.arrayOf(goodsItemTypes),
+  status: PropTypes.string,
+  activeTab: PropTypes.string,
 };
 
 export default BurgerIngredients;

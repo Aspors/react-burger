@@ -1,15 +1,19 @@
-import React from "react";
+import React, { useCallback } from "react";
 import ingredientDetailsStyles from "./ingredient-details.module.css";
-import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
 
-const IngredintDetails = ({
-  image_large,
-  name,
-  calories,
-  proteins,
-  fat,
-  carbohydrates,
-}) => {
+const IngredintDetails = () => {
+  const { items, modalElement } = useSelector((store) => store.ingredients);
+  const findItem = useCallback(
+    (data) => {
+      return data.find((item) => item._id === modalElement);
+    },
+    [modalElement]
+  );
+
+  const { image_large, name, calories, proteins, fat, carbohydrates } =
+    findItem(items);
+
   return (
     <div className="ingredint-details pl-10 pr-10">
       <img
@@ -18,13 +22,15 @@ const IngredintDetails = ({
         className={ingredientDetailsStyles["ingredint-details__img"]}
       />
       <span
-        className={`text text_type_main-medium mt-4 ${ingredientDetailsStyles["ingredient-details__title"]}`}>
+        className={`text text_type_main-medium mt-4 ${ingredientDetailsStyles["ingredient-details__title"]}`}
+      >
         {name}
       </span>
       <p></p>
       <ul
         className={` mt-8
-          ${ingredientDetailsStyles["ingredient-details__nutrition-value"]}`}>
+          ${ingredientDetailsStyles["ingredient-details__nutrition-value"]}`}
+      >
         <li className="calories">
           <span>Калории, ккал</span>
           <span>{calories}</span>
@@ -44,15 +50,6 @@ const IngredintDetails = ({
       </ul>
     </div>
   );
-};
-
-IngredintDetails.propTypes = {
-  image_large: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  calories: PropTypes.number.isRequired,
-  proteins: PropTypes.number.isRequired,
-  fat: PropTypes.number.isRequired,
-  carbohydrates: PropTypes.number.isRequired,
 };
 
 export default IngredintDetails;
