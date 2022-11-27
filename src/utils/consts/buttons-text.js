@@ -1,5 +1,5 @@
 export const BUTTON = {
-  SEND: "Отправить заказ",
+  SEND: "Оформить заказ",
   CONSTRUCTOR: "Конструктор",
   LINE: "Лента заказов",
   PROFILE_MENU: "Личный кабинет",

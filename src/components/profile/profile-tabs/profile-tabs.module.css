@@ -1,0 +1,15 @@
+.tab__list {
+    width: 320px;
+}
+
+.tab__list li {
+    display: flex;
+    align-items: center;
+    min-height: 60px;
+}
+
+.tab__list p {
+    margin-top: 80px;
+    max-width: 320px;
+    opacity: .4;
+}

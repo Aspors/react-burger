@@ -1,0 +1,7 @@
+.profile-container {
+    composes: container from "../../index.css";
+    padding-top: 120px;
+    display: flex;
+    justify-content: flex-start;
+    gap: 60px;
+}

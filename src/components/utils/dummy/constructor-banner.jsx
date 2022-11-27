@@ -2,9 +2,11 @@ import React from "react";
 import stylesConstructorBanner from "./constructor-banner.module.css";
 import { BANNER_TEXT } from "@consts/dummy-consts";
 
-const ConstructorBanner = () => {
+const ConstructorBanner = ({ extraClass = "" }) => {
   return (
-    <div className={stylesConstructorBanner["constructor-banner"]}>
+    <div
+      className={`${stylesConstructorBanner["constructor-banner"]} ${extraClass}`}
+    >
       <span className="constructor-banner text text_type_main-medium">
         {BANNER_TEXT}
       </span>

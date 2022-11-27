@@ -1,12 +1,16 @@
 import React, { useEffect } from "react";
-import appStyles from "./App.module.css";
 import AppHeader from "../app-header/app-header";
-import BurgerIngredients from "../burger-ingredients/burger-ingredients";
-import BurgerConstructor from "../burger-constructor/burger-constructor";
+import {
+  ConstructorPage,
+  Auth,
+  Register,
+  ForgotPassword,
+  ResetPassword,
+  Profile,
+} from "../../pages";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { getBurgerIngredients } from "../../services/actions/burger-ingredients/burger-ingrediens";
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -14,19 +18,32 @@ const App = () => {
   useEffect(() => {
     dispatch(getBurgerIngredients());
   }, [dispatch]);
-
   return (
-    <div className="App">
+    <Router>
       <AppHeader />
       <main>
-        <div className={appStyles.container}>
-          <DndProvider backend={HTML5Backend}>
-            <BurgerIngredients />
-            <BurgerConstructor />
-          </DndProvider>
-        </div>
+        <Switch>
+          <Route exact path="/">
+            <ConstructorPage />
+          </Route>
+          <Route path="/login">
+            <Auth />
+          </Route>
+          <Route path="/register">
+            <Register />
+          </Route>
+          <Route path="/forgot-password">
+            <ForgotPassword />
+          </Route>
+          <Route path="/reset-password">
+            <ResetPassword />
+          </Route>
+          <Route path="/profile">
+            <Profile />
+          </Route>
+        </Switch>
       </main>
-    </div>
+    </Router>
   );
 };
 

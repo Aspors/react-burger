@@ -1,4 +1,5 @@
 import React, { memo, useCallback } from "react";
+import styles from "./burger-constructor.module.css";
 import { BUTTON } from "../../utils/consts/buttons-text";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import Modal from "../modal/modal";
@@ -44,7 +45,7 @@ const BurgerConstructor = memo(() => {
   const isButtonDisabled = isModalActive || !cart.length || !bun;
 
   return (
-    <section className="pt-15 pl-3">
+    <section className="pt-15 pl-4">
       <MenuWrapper>
         <Menu />
       </MenuWrapper>
@@ -55,6 +56,7 @@ const BurgerConstructor = memo(() => {
           htmlType="submit"
           type="primary"
           size="medium"
+          extraClass={styles.button}
         >
           {BUTTON.SEND}
         </Button>
