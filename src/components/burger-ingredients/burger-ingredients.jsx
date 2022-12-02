@@ -1,21 +1,30 @@
-import React, { memo, useRef } from "react";
+import React, { memo, useEffect, useRef } from "react";
 import burgerIngredientsStyles from "./burger-ingredients.module.css";
 import PropTypes from "prop-types";
-import { HEADER } from "@consts/headers-consts";
+
 import BurgerIngredientsMenu from "./burger-ingredients-menu/burger-ingredients-menu";
 import BurgerCards from "./burger-cards/burger-cards";
 import Tabs from "./tabs/tabs";
-import { setContent } from "../../services/machine/machine";
-import { MENU_TYPE } from "@consts/common-consts";
-import { goodsItemTypes } from "@types/common-types";
+import { setContent } from "../../services/utils/machine/machine";
+
 import { useDispatch, useSelector } from "react-redux";
-import { CHANGE_TAB } from "../../services/actions/burger-ingredients/burger-ingrediens";
+import {
+  CHANGE_TAB,
+  getBurgerIngredients,
+} from "../../services/redux/actions/burger-ingredients/burger-ingrediens";
+import { MENU_TYPE } from "../../utils/consts/common-consts";
+import { HEADER } from "../../utils/consts/ui-consts/headers-consts";
+import { goodsItemTypes } from "../../utils/types/common-types";
 
 const BurgerIngredients = memo(() => {
   const { items, status, activeTab } = useSelector(
     (store) => store.ingredients
   );
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getBurgerIngredients());
+  }, [dispatch]);
 
   const refs = [useRef(), useRef(), useRef()];
 

@@ -6,10 +6,14 @@ import {
   ProfileIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import appHeaderStyles from "./app-header.module.css";
-import { BUTTON } from "../../utils/consts/buttons-text";
-import { Link } from "react-router-dom";
+import { BUTTON } from "../../utils/consts/ui-consts/buttons-text";
+import { Link, useLocation } from "react-router-dom";
+import { ROUTES } from "../../utils/consts/sevice-consts/routes.consts";
 
 const AppHeader = memo(() => {
+  const { pathname } = useLocation();
+  const isHome = pathname === ROUTES.HOME;
+  const isProfile = pathname === ROUTES.PROFILE;
   return (
     <header className={appHeaderStyles.header}>
       <div className="container">
@@ -18,8 +22,12 @@ const AppHeader = memo(() => {
             <ul className={appHeaderStyles.nav__list}>
               <li className={appHeaderStyles["nav__list-item"]}>
                 <Link className={appHeaderStyles["nav__list-link"]} to="/">
-                  <BurgerIcon type="primary" />
-                  <span className={appHeaderStyles["nav__list-span"]}>
+                  <BurgerIcon type={isHome ? "primary" : "secondary"} />
+                  <span
+                    className={`${appHeaderStyles["nav__list-span"]} ${
+                      isHome && appHeaderStyles.active
+                    }`}
+                  >
                     {BUTTON.CONSTRUCTOR}
                   </span>
                 </Link>
@@ -44,8 +52,12 @@ const AppHeader = memo(() => {
                   className={appHeaderStyles["nav__list-link"]}
                   to="/profile"
                 >
-                  <ProfileIcon type="secondary" />
-                  <span className={appHeaderStyles["nav__list-span"]}>
+                  <ProfileIcon type={isProfile ? "primary" : "secondary"} />
+                  <span
+                    className={`${appHeaderStyles["nav__list-span"]} ${
+                      isProfile && appHeaderStyles["active"]
+                    }`}
+                  >
                     {BUTTON.PROFILE_MENU}
                   </span>
                 </Link>

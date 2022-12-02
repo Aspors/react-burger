@@ -3,42 +3,102 @@ import {
   Button,
   Input,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import { Link, useHistory } from "react-router-dom";
+import { useForm, Controller } from "react-hook-form";
+import { validationConfig } from "../../../utils/configs/validation.config";
+import * as yup from "yup";
+import { token, password } from "../../../utils/consts/form-consts/yup-consts";
+import PasswordInput from "../../utils/password-input/password-input";
+import { ROUTES } from "../../../utils/consts/sevice-consts/routes.consts";
+import { _PASSWORD_RESET } from "../../../utils/consts/sevice-consts/Api-consts";
+import useSumitForm from "../../../hooks/useSumitForm";
+import { FIELD_NAME } from "../../../utils/consts/form-consts/field-names.consts";
 
 const ResetPasswordForm = () => {
+  const schema = yup.object().shape({
+    password: password,
+    token: token,
+  });
+  const { isDisabled, errorMessage, submitForm } = useSumitForm();
+  const history = useHistory();
+  const { control, handleSubmit, setError } = useForm(
+    validationConfig({ password: "", token: "" }, schema)
+  );
+
+  const onError = () => {
+    errorMessage.includes("password") &&
+      setError(FIELD_NAME.PASSWORD, { message: errorMessage });
+    errorMessage.includes("token") &&
+      setError(FIELD_NAME.TOKEN, { message: errorMessage });
+    !errorMessage && alert(errorMessage);
+  };
+
+  const onSubmit = (data) => {
+    submitForm(_PASSWORD_RESET, data, history, ROUTES.LOGIN);
+    !!errorMessage && onError();
+  };
+
   return (
-    <form className={styles["reset-password-form"]}>
+    <form
+      className={styles["reset-password-form"]}
+      onSubmit={handleSubmit(onSubmit)}
+    >
       <h1 className="text text_type_main-medium">Восстановление пароля</h1>
-      <Input
-        onChange={() => {}}
-        type={"password"}
-        placeholder={"Введите новый пароль"}
-        icon={"ShowIcon"}
-        name={"password"}
-        error={false}
-        errorText={"Ошибка"}
-        size={"default"}
-        extraClass={styles["reset-password-form__input"]}
+      <Controller
+        control={control}
+        name="password"
+        render={({
+          field: { onChange, onBlur, value },
+          fieldState: { error },
+        }) => (
+          <PasswordInput
+            onChange={onChange}
+            onBlur={onBlur}
+            value={value}
+            error={!!error}
+            errorText={error?.message}
+            placeholder={"Введите новый пароль"}
+            styles={styles["reset-password-form__input"]}
+          />
+        )}
       />
-      <Input
-        onChange={() => {}}
-        type={"text"}
-        placeholder={"Введите код из письма"}
-        name={"password"}
-        error={false}
-        errorText={"Ошибка"}
-        size={"default"}
-        extraClass={styles["reset-password-form__input"]}
+
+      <Controller
+        control={control}
+        name="token"
+        render={({
+          field: { onChange, onBlur, value },
+          fieldState: { error },
+        }) => (
+          <Input
+            onChange={onChange}
+            value={value}
+            onBlur={onBlur}
+            type={"text"}
+            placeholder={"Введите код из письма"}
+            name={"password"}
+            error={!!error}
+            errorText={error?.message}
+            size={"default"}
+            extraClass={styles["reset-password-form__input"]}
+          />
+        )}
       />
+
       <Button
         htmlType="submit"
         type="primary"
         size="medium"
+        disabled={isDisabled}
         extraClass={styles["reset-password-form__button"]}
       >
         Восстановить
       </Button>
       <span className={"text text_type_main-default text_color_inactive"}>
-        Вспомнили пароль? <a href="#">Войти</a>
+        Вспомнили пароль?{" "}
+        <Link to={ROUTES.LOGIN} replace>
+          Войти
+        </Link>
       </span>
     </form>
   );

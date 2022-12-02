@@ -5,7 +5,7 @@ import ConstructorBanner from "../../utils/dummy/constructor-banner";
 import { useDispatch, useSelector } from "react-redux";
 
 import ConstructorDraggableElement from "../constructor-draggable-element/constructor-draggable-element";
-import { NEW_CART_ORDER } from "../../../services/actions/burger-constructor/burger-constructor";
+import { NEW_CART_ORDER } from "../../../services/redux/actions/burger-constructor/burger-constructor";
 import { useDrop } from "react-dnd";
 import { MENU_TYPE } from "../../../utils/consts/common-consts";
 

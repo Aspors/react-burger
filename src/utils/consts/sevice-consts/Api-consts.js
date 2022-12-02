@@ -1,0 +1,10 @@
+export const _API_BASE = "https://norma.nomoreparties.space/api/";
+export const _INGREDIENTS = "ingredients";
+export const _ORDERS = "orders";
+export const _FORGOT_PASSWORD = "password-reset";
+export const _PASSWORD_RESET = "password-reset/reset";
+export const _REGISTER = "auth/register";
+export const _LOGIN = "auth/login";
+export const _TOKEN = "auth/token";
+export const _LOG_OUT = "auth/logout";
+export const _USER = "auth/user";

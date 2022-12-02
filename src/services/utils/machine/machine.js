@@ -1,5 +1,5 @@
-import ErrorMessage from "../../components/utils/error-message/error-message";
-import Spinner from "../../components/utils/spinner/spinner";
+import ErrorMessage from "../../../components/utils/error-message/error-message";
+import Spinner from "../../../components/utils/spinner/spinner";
 
 export const _IDLE = "IDLE";
 export const _LOADING = "LOADING";

@@ -7,8 +7,8 @@ import {
   TOGGLE_MODAL,
 } from "../../actions/burger-ingredients/burger-ingrediens";
 
-import { _ERROR, _IDLE, _LOADING } from "../../machine/machine";
-import { MENU_TYPE } from "../../../utils/consts/common-consts";
+import { _ERROR, _IDLE, _LOADING } from "../../../utils/machine/machine";
+import { MENU_TYPE } from "../../../../utils/consts/common-consts";
 
 export const initialBurgerState = {
   status: _IDLE,

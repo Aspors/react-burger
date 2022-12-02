@@ -28,6 +28,10 @@
     gap: 8px;
 }
 
+.active {
+    color: #f2f2f3 !important;
+}
+
 .nav__list-item {
     box-sizing: border-box;
     background: #1c1c21;

@@ -1,4 +1,5 @@
-import { _API_BASE, _ORDERS } from "../../../utils/consts/Api-consts";
+import { _ORDERS } from "../../../../utils/consts/sevice-consts/Api-consts";
+import api from "../../../../http";
 
 export const ADD_ITEM = "ADD_ITEM";
 export const NEW_CART_ORDER = "NEW_CART_ORDER";
@@ -16,23 +17,18 @@ export const sendOrder = (formedData) => {
   return async (dispatch) => {
     dispatch({ type: SEND_ORDER_REQUEST });
     try {
-      const res = await fetch(`${_API_BASE}${_ORDERS}`, {
-        method: "POST",
-        body: JSON.stringify(formedData),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }).then((res) => res.json());
-      if (res && res.success) {
+      const res = await api.post(_ORDERS, formedData);
+      if (res?.data && res?.data?.success) {
         dispatch({
           type: SEND_ORDER_SUCCESS,
-          payload: { number: res.order.number, name: res.name },
+          payload: { number: res.data.order.number, name: res.data.name },
         });
       } else {
         dispatch({ type: SEND_ORDER_FAILED });
-        new Error(res.message);
+        return new Error(res.data.message);
       }
     } catch (e) {
+      console.log(e);
       dispatch({ type: SEND_ORDER_FAILED });
       throw new Error(e);
     }

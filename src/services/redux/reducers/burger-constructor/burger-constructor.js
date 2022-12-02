@@ -9,7 +9,7 @@ import {
   NEW_CART_ORDER,
   CLEAR_CART,
 } from "../../actions/burger-constructor/burger-constructor";
-import { _ERROR, _IDLE, _LOADING } from "../../machine/machine";
+import { _ERROR, _IDLE, _LOADING } from "../../../utils/machine/machine";
 
 export const initialConstructorState = {
   cart: [],

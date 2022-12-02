@@ -3,23 +3,25 @@ import {
   Input,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "../../forms/auth-form/auth-form.module.css";
+import { useSelector } from "react-redux";
 
-const profileForm = () => {
+const ProfileForm = () => {
+  const { name, email } = useSelector((store) => store.user.user);
   return (
     <ul>
       <EmailInput
         name={"name"}
         onChange={() => {}}
         placeholder="Имя"
-        value={"mark"}
+        value={name}
         isIcon={true}
         extraClass="mb-2"
       />
       <EmailInput
         onChange={() => {}}
         name={"email"}
-        value={"random@mail.com"}
         placeholder="Логин"
+        value={email}
         isIcon={true}
         extraClass="mb-2"
       />
@@ -38,4 +40,4 @@ const profileForm = () => {
   );
 };
 
-export default profileForm;
+export default ProfileForm;

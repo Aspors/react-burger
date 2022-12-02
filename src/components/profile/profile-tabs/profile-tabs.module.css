@@ -4,6 +4,7 @@
 
 .tab__list li {
     display: flex;
+    cursor: pointer;
     align-items: center;
     min-height: 60px;
 }

@@ -9,7 +9,7 @@ import {
 import {
   ADD_ITEM,
   SET_BUN,
-} from "../../../services/actions/burger-constructor/burger-constructor";
+} from "../../../services/redux/actions/burger-constructor/burger-constructor";
 import { v4 as keyGen } from "uuid";
 import Bun from "../bun/bun";
 

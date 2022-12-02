@@ -1,6 +1,6 @@
 import React, { memo, useCallback } from "react";
 import styles from "./burger-constructor.module.css";
-import { BUTTON } from "../../utils/consts/buttons-text";
+import { BUTTON } from "../../utils/consts/ui-consts/buttons-text";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import Modal from "../modal/modal";
 import OrderDetails from "../modal/order-details/order-details";
@@ -12,7 +12,7 @@ import {
   CLEAR_CART,
   sendOrder,
   TOGGLE_CONSTRUCTOR_MODAL,
-} from "../../services/actions/burger-constructor/burger-constructor";
+} from "../../services/redux/actions/burger-constructor/burger-constructor";
 
 const BurgerConstructor = memo(() => {
   const dispatch = useDispatch();

@@ -8,42 +8,37 @@ import {
   ResetPassword,
   Profile,
 } from "../../pages";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { getBurgerIngredients } from "../../services/actions/burger-ingredients/burger-ingrediens";
+import ProtectedRoute from "../utils/protected-route/protected-route";
+import { Route, Switch } from "react-router-dom";
+import { ROUTES } from "../../utils/consts/sevice-consts/routes.consts";
 
 const App = () => {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getBurgerIngredients());
-  }, [dispatch]);
   return (
-    <Router>
+    <>
       <AppHeader />
       <main>
         <Switch>
-          <Route exact path="/">
+          <ProtectedRoute exact path={ROUTES.HOME}>
             <ConstructorPage />
-          </Route>
-          <Route path="/login">
+          </ProtectedRoute>
+          <ProtectedRoute exact path={ROUTES.PROFILE}>
+            <Profile />
+          </ProtectedRoute>
+          <Route exact path={ROUTES.LOGIN}>
             <Auth />
           </Route>
-          <Route path="/register">
+          <Route exact path={ROUTES.REGISTER}>
             <Register />
           </Route>
-          <Route path="/forgot-password">
+          <Route exact path={ROUTES.FORGOT_PASSWORD}>
             <ForgotPassword />
           </Route>
-          <Route path="/reset-password">
+          <Route exact path={ROUTES.RESET_PASSWORD}>
             <ResetPassword />
-          </Route>
-          <Route path="/profile">
-            <Profile />
           </Route>
         </Switch>
       </main>
-    </Router>
+    </>
   );
 };
 

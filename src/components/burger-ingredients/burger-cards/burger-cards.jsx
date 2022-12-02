@@ -5,12 +5,12 @@ import PropTypes from "prop-types";
 import { goodsItemTypes } from "../../../utils/types/common-types";
 import Modal from "../../modal/modal";
 import IngredintDetails from "../../modal/ingredient-details/ingredient-details";
-import { MODAL } from "../../../utils/consts/headers-consts";
+import { MODAL } from "../../../utils/consts/ui-consts/headers-consts";
 import { useDispatch, useSelector } from "react-redux";
 import {
   SET_MODAL_ELEMENT,
   TOGGLE_MODAL,
-} from "../../../services/actions/burger-ingredients/burger-ingrediens";
+} from "../../../services/redux/actions/burger-ingredients/burger-ingrediens";
 import BurgerCard from "../burger-card/burger-card";
 
 const BurgerCards = memo(

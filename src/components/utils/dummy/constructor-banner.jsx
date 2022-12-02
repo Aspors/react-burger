@@ -1,6 +1,6 @@
 import React from "react";
 import stylesConstructorBanner from "./constructor-banner.module.css";
-import { BANNER_TEXT } from "@consts/dummy-consts";
+import { BANNER_TEXT } from "../../../utils/consts/ui-consts/dummy-consts";
 
 const ConstructorBanner = ({ extraClass = "" }) => {
   return (

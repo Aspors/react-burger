@@ -7,15 +7,18 @@ import {
   constructorReducer,
   initialConstructorState,
 } from "../reducers/burger-constructor/burger-constructor";
+import userReducer, { initialUserState } from "../reducers/user/userReducer";
 
 const rootReducer = combineReducers({
   ingredients: burgerIngredientsReducer,
   constructor: constructorReducer,
+  user: userReducer,
 });
 
 const preloadedState = {
   ingredients: initialBurgerState,
   constructor: initialConstructorState,
+  user: initialUserState,
 };
 
 const store = configureStore({
