@@ -6,7 +6,7 @@ export default class UserService {
     return api.get(_USER);
   }
 
-  static async patchUser(name, email) {
-    return api.patch(_USER, { name, email });
+  static async patchUser({ name, email, password }) {
+    return api.patch(_USER, { name, email, password });
   }
 }

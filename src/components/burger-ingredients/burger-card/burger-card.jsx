@@ -5,9 +5,12 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import React, { memo } from "react";
 import { useDrag } from "react-dnd";
+import { Link, useLocation } from "react-router-dom";
 
-const BurgerCard = memo(({ handleItemClick, item, bun, itemsAmount }) => {
+const BurgerCard = memo(({ item, bun, itemsAmount }) => {
   const { _id, type, price, name, image } = item;
+
+  const location = useLocation();
   const [{ isDrag }, ref] = useDrag({
     type: type,
     item: item,
@@ -21,14 +24,16 @@ const BurgerCard = memo(({ handleItemClick, item, bun, itemsAmount }) => {
 
   const opacity = isDrag ? 0 : 1;
   return (
-    <li
+    <Link
       draggable
       style={{ opacity }}
       ref={ref}
       onDrag={(e) => handleDrag(e)}
-      onClick={(e) => handleItemClick(e)}
       tabIndex={0}
-      data-key={_id}
+      to={{
+        pathname: `ingredients/${_id}`,
+        state: { background: location },
+      }}
       className={burgerCardStyles.menu__item}
     >
       {itemsAmount !== 0 && <Counter count={itemsAmount} />}
@@ -49,7 +54,7 @@ const BurgerCard = memo(({ handleItemClick, item, bun, itemsAmount }) => {
       >
         {name}
       </span>
-    </li>
+    </Link>
   );
 });
 

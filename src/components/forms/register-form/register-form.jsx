@@ -16,7 +16,6 @@ import {
 import PasswordInput from "../../utils/password-input/password-input";
 import { useDispatch, useSelector } from "react-redux";
 import { userRegister } from "../../../services/redux/actions/user/userActions";
-import { _LOADING } from "../../../services/utils/machine/machine";
 
 const RegisterForm = () => {
   const schema = yup.object().shape({
@@ -28,16 +27,16 @@ const RegisterForm = () => {
   const history = useHistory();
 
   const dispatch = useDispatch();
-  const { status } = useSelector((store) => store.user.status);
+  const isLoading = useSelector((store) => store.user.isLoading);
   const { control, handleSubmit, setError } = useForm(
     validationConfig({ email: "", password: "", name: "" }, schema)
   );
-
+  const from = history.location.state?.from;
   const onSubmit = (data) => {
-    dispatch(userRegister(data, setError, history));
+    dispatch(userRegister(data, setError, history, from));
   };
+  console.log(from);
 
-  const isDisabled = status === _LOADING;
   return (
     <form className={styles["register-form"]} onSubmit={handleSubmit(onSubmit)}>
       <h1 className="text text_type_main-medium">Регистрация</h1>
@@ -102,7 +101,7 @@ const RegisterForm = () => {
         htmlType="submit"
         type="primary"
         size="medium"
-        disabled={isDisabled}
+        disabled={isLoading}
         extraClass={styles["register-form__button"]}
       >
         Зарегистрироваться

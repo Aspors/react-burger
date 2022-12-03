@@ -5,4 +5,5 @@ export const ROUTES = {
   REGISTER: "/register",
   FORGOT_PASSWORD: "/forgot-password",
   RESET_PASSWORD: "/reset-password",
+  INGREDIENT_DETAILS: "/ingredients/:id",
 };

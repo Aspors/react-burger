@@ -12,6 +12,7 @@ export default class AuthService {
   }
 
   static async register({ name, email, password }) {
+    console.log("service: ", `${_REGISTER} - register`);
     return api.post(_REGISTER, { name, email, password });
   }
 

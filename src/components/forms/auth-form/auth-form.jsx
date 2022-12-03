@@ -14,24 +14,24 @@ import {
 import PasswordInput from "../../utils/password-input/password-input";
 import { useDispatch, useSelector } from "react-redux";
 import { userLogin } from "../../../services/redux/actions/user/userActions";
-import { _LOADING } from "../../../services/utils/machine/machine";
+import { ROUTES } from "../../../utils/consts/sevice-consts/routes.consts";
 
 const AuthForm = () => {
   const schema = yup.object().shape({
     email: email,
     password: authPassword,
   });
-  const status = useSelector((store) => store.user.status);
+  const isLoading = useSelector((store) => store.user.isLoading);
   const history = useHistory();
+  const from = history.location.state?.from;
   const dispatch = useDispatch();
   const onSubmit = (data) => {
-    dispatch(userLogin(data, setError, history));
+    dispatch(userLogin(data, setError, history, from));
   };
   const { control, handleSubmit, setError } = useForm(
     validationConfig({ email: "", password: "" }, schema)
   );
 
-  const isDisabled = status === _LOADING;
   return (
     <form className={styles["auth-form"]} onSubmit={handleSubmit(onSubmit)}>
       <h1 className="text text_type_main-medium">Вход</h1>
@@ -45,7 +45,7 @@ const AuthForm = () => {
           <EmailInput
             onChange={onChange}
             onBlur={onBlur}
-            error={error}
+            error={!!error?.message}
             errorText={error?.message}
             value={value}
             isIcon={false}
@@ -64,7 +64,7 @@ const AuthForm = () => {
             value={value}
             onChange={onChange}
             onBlur={onBlur}
-            error={!!error}
+            error={!!error?.message}
             errorText={error?.message}
             placeholder={"Пароль"}
             styles={styles["auth-form__input"]}
@@ -76,13 +76,16 @@ const AuthForm = () => {
         htmlType="submit"
         type="primary"
         size="medium"
-        disabled={isDisabled}
+        disabled={isLoading}
         extraClass={styles["auth-form__button"]}
       >
         Войти
       </Button>
       <span className={"text text_type_main-default text_color_inactive"}>
-        Вы — новый пользователь? <Link to="/register">Зарегистрироваться</Link>
+        Вы — новый пользователь?{" "}
+        <Link to={{ pathname: ROUTES.REGISTER, state: { from: from } }}>
+          Зарегистрироваться
+        </Link>
       </span>
       <span className={"text text_type_main-default text_color_inactive"}>
         Забыли пароль? <Link to="/forgot-password">Восстановить пароль</Link>

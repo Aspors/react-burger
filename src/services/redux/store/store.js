@@ -10,15 +10,15 @@ import {
 import userReducer, { initialUserState } from "../reducers/user/userReducer";
 
 const rootReducer = combineReducers({
+  user: userReducer,
   ingredients: burgerIngredientsReducer,
   constructor: constructorReducer,
-  user: userReducer,
 });
 
 const preloadedState = {
+  user: initialUserState,
   ingredients: initialBurgerState,
   constructor: initialConstructorState,
-  user: initialUserState,
 };
 
 const store = configureStore({

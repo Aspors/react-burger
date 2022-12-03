@@ -3,7 +3,7 @@ import {
   Button,
   EmailInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Link, useHistory, useLocation } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useForm, Controller } from "react-hook-form";
 import { validationConfig } from "../../../utils/configs/validation.config";
 import * as yup from "yup";
@@ -26,10 +26,15 @@ const ForgotPasswordForm = () => {
   );
 
   const onError = () => {
-    errorMessage.includes("email")
-      ? setError(FIELD_NAME.TOKEN, { message: errorMessage })
-      : alert(errorMessage);
+    errorMessage.includes("email") &&
+      setError(
+        FIELD_NAME.TOKEN,
+        { message: errorMessage },
+        { shouldFocus: true }
+      );
   };
+
+  const from = history.location.state?.from;
 
   const onSubmit = (body) => {
     submitForm(
@@ -37,7 +42,8 @@ const ForgotPasswordForm = () => {
       body,
       history,
       ROUTES.RESET_PASSWORD,
-      ROUTES.FORGOT_PASSWORD
+      true,
+      from
     );
     !!errorMessage && onError(errorMessage);
   };
@@ -59,7 +65,7 @@ const ForgotPasswordForm = () => {
             value={value}
             onChange={onChange}
             onBlur={onBlur}
-            error={!!error}
+            error={!!error?.message}
             errorText={error?.message}
             placeholder={"Укажите e-mail"}
             isIcon={false}
@@ -82,7 +88,7 @@ const ForgotPasswordForm = () => {
         <Link
           to={{
             pathname: ROUTES.LOGIN,
-            state: { from: ROUTES.FORGOT_PASSWORD },
+            state: { from: history?.state?.from },
           }}
         >
           Войти

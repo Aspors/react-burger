@@ -20,3 +20,9 @@ export const password = yup
 export const token = yup.string().required("Обязательное поле");
 
 export const authPassword = yup.string().required("Введите пароль");
+
+export const profilePassword = yup.lazy((value) => {
+  return value === ""
+    ? yup.string()
+    : yup.string().min(8, "Минимум 8 символов").max(32, "Максимум 32 символа");
+});

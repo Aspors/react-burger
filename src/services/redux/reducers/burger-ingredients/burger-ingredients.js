@@ -11,14 +11,11 @@ import { _ERROR, _IDLE, _LOADING } from "../../../utils/machine/machine";
 import { MENU_TYPE } from "../../../../utils/consts/common-consts";
 
 export const initialBurgerState = {
-  status: _IDLE,
+  status: _LOADING,
 
   items: [],
 
   activeTab: MENU_TYPE.BUN,
-
-  modalElement: null,
-  isModalActive: false,
 };
 
 export const burgerIngredientsReducer = (

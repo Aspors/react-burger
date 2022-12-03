@@ -19,23 +19,36 @@ const ResetPasswordForm = () => {
     password: password,
     token: token,
   });
-  const { isDisabled, errorMessage, submitForm } = useSumitForm();
+  const { isDisabled, submitForm } = useSumitForm();
   const history = useHistory();
   const { control, handleSubmit, setError } = useForm(
     validationConfig({ password: "", token: "" }, schema)
   );
 
-  const onError = () => {
-    errorMessage.includes("password") &&
-      setError(FIELD_NAME.PASSWORD, { message: errorMessage });
-    errorMessage.includes("token") &&
-      setError(FIELD_NAME.TOKEN, { message: errorMessage });
-    !errorMessage && alert(errorMessage);
+  const onError = (message) => {
+    message.includes("password") &&
+      setError(
+        FIELD_NAME.PASSWORD,
+        { message: message },
+        { shouldFocus: true }
+      );
+
+    message.includes("token") &&
+      setError(FIELD_NAME.TOKEN, { message: message }, { shouldFocus: true });
   };
 
+  const from = history.location.state?.from;
+
   const onSubmit = (data) => {
-    submitForm(_PASSWORD_RESET, data, history, ROUTES.LOGIN);
-    !!errorMessage && onError();
+    submitForm(
+      _PASSWORD_RESET,
+      data,
+      history,
+      ROUTES.LOGIN,
+      false,
+      from,
+      onError
+    );
   };
 
   return (
@@ -55,7 +68,7 @@ const ResetPasswordForm = () => {
             onChange={onChange}
             onBlur={onBlur}
             value={value}
-            error={!!error}
+            error={!!error?.message}
             errorText={error?.message}
             placeholder={"Введите новый пароль"}
             styles={styles["reset-password-form__input"]}
@@ -77,7 +90,7 @@ const ResetPasswordForm = () => {
             type={"text"}
             placeholder={"Введите код из письма"}
             name={"password"}
-            error={!!error}
+            error={!!error?.message}
             errorText={error?.message}
             size={"default"}
             extraClass={styles["reset-password-form__input"]}
@@ -96,7 +109,10 @@ const ResetPasswordForm = () => {
       </Button>
       <span className={"text text_type_main-default text_color_inactive"}>
         Вспомнили пароль?{" "}
-        <Link to={ROUTES.LOGIN} replace>
+        <Link
+          to={{ pathname: ROUTES.LOGIN, state: { from: !!from && from } }}
+          replace
+        >
           Войти
         </Link>
       </span>

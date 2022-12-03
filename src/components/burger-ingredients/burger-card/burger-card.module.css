@@ -3,6 +3,8 @@
     position: relative;
     align-items: center;
     flex-direction: column;
+    text-decoration: none;
+    color: #f2f2f3;
     cursor: pointer;
     gap: 8px;
     width: 272px;

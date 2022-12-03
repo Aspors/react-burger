@@ -1,11 +1,11 @@
 import {
-  SET_AUTH,
+  SET_AUTH_CHECKED,
   LOGOUT,
   USER_FAILED,
   USER_REQUEST,
   USER_SUCCESS,
+  RESET_LOADING,
 } from "../../actions/user/userActions";
-import { _IDLE, _LOADING } from "../../../utils/machine/machine";
 import { deleteCookie } from "../../../utils/cookie-managment/cookie-manage";
 import {
   _accessToken,
@@ -13,40 +13,45 @@ import {
 } from "../../../../utils/consts/sevice-consts/token-names";
 
 export const initialUserState = {
-  isAuth: false,
-  status: _IDLE,
-  user: {
-    name: "",
-    email: "",
-  },
+  isAuthChecked: false,
+  isLoading: false,
+
+  user: null,
 };
 
 const userReducer = (state = initialUserState, action) => {
   switch (action.type) {
     case USER_REQUEST: {
-      return { ...state, status: _LOADING };
+      return { ...state, isLoading: true };
     }
     case USER_SUCCESS: {
       return {
         ...state,
-        user: action.payload?.user || state.user,
-        isAuth: true,
-        status: _IDLE,
+        isAuthChecked: true,
+        user: action.payload?.user || initialUserState.user,
+        isLoading: false,
       };
     }
-    case SET_AUTH: {
+    case SET_AUTH_CHECKED: {
       return {
         ...state,
-        status: _IDLE,
-        isAuth: true,
+        isLoading: false,
+        isAuthChecked: true,
+      };
+    }
+
+    case RESET_LOADING: {
+      return {
+        ...state,
+        isLoading: false,
       };
     }
 
     case USER_FAILED: {
       return {
         ...state,
-        isAuth: false,
-        status: _IDLE,
+        isAuthChecked: true,
+        isLoading: false,
         user: initialUserState.user,
       };
     }
@@ -55,13 +60,13 @@ const userReducer = (state = initialUserState, action) => {
       deleteCookie(_accessToken);
       return {
         ...state,
-        status: _IDLE,
-        isAuth: false,
+        isLoading: false,
+        isAuthChecked: true,
         user: initialUserState.user,
       };
     }
     default: {
-      return initialUserState;
+      return state;
     }
   }
 };

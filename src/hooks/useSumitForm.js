@@ -1,36 +1,38 @@
 import { useState } from "react";
 import api from "../http";
-import { ROUTES } from "../utils/consts/sevice-consts/routes.consts";
 
 const useSumitForm = () => {
   const [isDisabled, setDisabled] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
 
-  const submitForm = (endpoint, data, history, to, from = null) => {
+  const submitForm = (
+    endpoint,
+    data,
+    history,
+    to,
+    pass = false,
+    from = null,
+    onError
+  ) => {
     setDisabled(true);
     try {
       api
         .post(endpoint, data)
-        .then((res) => {
-          alert(res?.message);
-          !!from &&
-            (() => {
-              history.state = { from: ROUTES.FORGOT_PASSWORD };
-            })();
-          history.replace(to);
+        .then(() => {
+          history.replace(to, { pass, from });
         })
-        .catch((res) => {
-          setErrorMessage(res?.message);
+        .catch((error) => {
+          console.log(error);
+          onError(error.response?.data?.message);
         })
         .finally(() => setDisabled(false));
     } catch (e) {
       setDisabled(false);
-      setErrorMessage(e.message);
+      onError(e);
       throw e;
     }
   };
 
-  return { isDisabled, submitForm, errorMessage };
+  return { isDisabled, submitForm };
 };
 
 export default useSumitForm;

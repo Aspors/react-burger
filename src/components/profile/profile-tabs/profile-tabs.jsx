@@ -1,19 +1,13 @@
 import styles from "./profile-tabs.module.css";
-import { useHistory, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import {
-  getUser,
-  userLogOut,
-} from "../../../services/redux/actions/user/userActions";
-import { useEffect } from "react";
+import { userLogOut } from "../../../services/redux/actions/user/userActions";
+
 import { ROUTES } from "../../../utils/consts/sevice-consts/routes.consts";
 
 const ProfileTabs = () => {
   const dispatch = useDispatch();
   const { pathname } = useLocation();
-  useEffect(() => {
-    dispatch(getUser());
-  }, []);
 
   const handleLogout = () => {
     dispatch(userLogOut());

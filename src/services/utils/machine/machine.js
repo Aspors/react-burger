@@ -5,7 +5,7 @@ export const _IDLE = "IDLE";
 export const _LOADING = "LOADING";
 export const _ERROR = "ERROR";
 
-export const setContent = (componentStatus, View) => {
+export const setContent = (componentStatus) => {
   switch (componentStatus) {
     case _LOADING: {
       return <Spinner />;
@@ -14,7 +14,7 @@ export const setContent = (componentStatus, View) => {
       return <ErrorMessage />;
     }
     case _IDLE: {
-      return <View />;
+      break;
     }
     default: {
       throw new Error("Wrong type of component status");

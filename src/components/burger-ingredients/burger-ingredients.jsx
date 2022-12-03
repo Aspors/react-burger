@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useRef } from "react";
+import React, { memo, useRef } from "react";
 import burgerIngredientsStyles from "./burger-ingredients.module.css";
 import PropTypes from "prop-types";
 
@@ -8,10 +8,7 @@ import Tabs from "./tabs/tabs";
 import { setContent } from "../../services/utils/machine/machine";
 
 import { useDispatch, useSelector } from "react-redux";
-import {
-  CHANGE_TAB,
-  getBurgerIngredients,
-} from "../../services/redux/actions/burger-ingredients/burger-ingrediens";
+import { CHANGE_TAB } from "../../services/redux/actions/burger-ingredients/burger-ingrediens";
 import { MENU_TYPE } from "../../utils/consts/common-consts";
 import { HEADER } from "../../utils/consts/ui-consts/headers-consts";
 import { goodsItemTypes } from "../../utils/types/common-types";
@@ -21,10 +18,6 @@ const BurgerIngredients = memo(() => {
     (store) => store.ingredients
   );
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getBurgerIngredients());
-  }, [dispatch]);
 
   const refs = [useRef(), useRef(), useRef()];
 
@@ -64,14 +57,14 @@ const BurgerIngredients = memo(() => {
     );
   };
 
-  const content = setContent(status, View);
+  const content = setContent(status);
 
   return (
     <section className={burgerIngredientsStyles.buildBurger}>
       <h1 className="text text_type_main-large mb-5">{HEADER.BUILD_BURGER}</h1>
       <Tabs refs={refs} />
       <BurgerIngredientsMenu handleScroll={handleScroll}>
-        {content}
+        {content ? content : <View />}
       </BurgerIngredientsMenu>
     </section>
   );
