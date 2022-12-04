@@ -5,7 +5,7 @@ const useAuthCheck = () => {
   const { isAuthChecked, isLoading } = useSelector((store) => store.user);
   const dispatch = useDispatch();
 
-  const authCheck = async () => {
+  const authCheck = () => {
     dispatch(getUser());
   };
 

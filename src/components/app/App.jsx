@@ -8,7 +8,7 @@ import {
   ResetPassword,
   Profile,
 } from "../../pages";
-import ProtectedRoute from "../utils/protected-route/protected-route";
+import CustomRoute from "../utils/custom-route/custom-route";
 import { Route, Switch, useHistory, useLocation } from "react-router-dom";
 import { ROUTES } from "../../utils/consts/sevice-consts/routes.consts";
 import IngredientDetails from "../modal/ingredient-details/ingredient-details";
@@ -20,6 +20,7 @@ import { useDispatch, useSelector } from "react-redux";
 import OrderDetails from "../modal/order-details/order-details";
 import { CLEAR_CART } from "../../services/redux/actions/burger-constructor/burger-constructor";
 import Page404 from "../../pages/page404/page404";
+import useAuthCheck from "../../hooks/useAuthCheck";
 
 const App = () => {
   const location = useLocation();
@@ -28,8 +29,11 @@ const App = () => {
   const orderBackground = location?.state?.orderBackground;
   const dispatch = useDispatch();
   const { user, isLoading } = useSelector((store) => store.user);
+  const { authCheck } = useAuthCheck();
   useEffect(() => {
     dispatch(getBurgerIngredients());
+    authCheck();
+    // eslint-disable-next-line
   }, [dispatch]);
 
   const handleCloseModal = () => {
@@ -54,21 +58,21 @@ const App = () => {
             </div>
           </Route>
 
-          <ProtectedRoute exact path={ROUTES.PROFILE}>
+          <CustomRoute exact path={ROUTES.PROFILE} isProtected>
             <Profile />
-          </ProtectedRoute>
-          <Route exact path={ROUTES.LOGIN}>
+          </CustomRoute>
+          <CustomRoute exact path={ROUTES.LOGIN}>
             <Auth />
-          </Route>
-          <Route exact path={ROUTES.REGISTER}>
+          </CustomRoute>
+          <CustomRoute exact path={ROUTES.REGISTER}>
             <Register />
-          </Route>
-          <Route exact path={ROUTES.FORGOT_PASSWORD}>
+          </CustomRoute>
+          <CustomRoute exact path={ROUTES.FORGOT_PASSWORD}>
             <ForgotPassword />
-          </Route>
-          <Route exact path={ROUTES.RESET_PASSWORD}>
+          </CustomRoute>
+          <CustomRoute exact path={ROUTES.RESET_PASSWORD}>
             <ResetPassword />
-          </Route>
+          </CustomRoute>
           {!isLoading && !orderBackground && (
             <Route path="*">
               <Page404 />
@@ -83,11 +87,11 @@ const App = () => {
           </Route>
         )}
         {orderBackground && (
-          <ProtectedRoute exact path={ROUTES.ORDER_DETAILS}>
+          <CustomRoute exact path={ROUTES.ORDER_DETAILS} isProtected>
             <Modal handleShowModal={handleCloseOrderModal}>
               <OrderDetails handleShowModal={handleCloseOrderModal} />
             </Modal>
-          </ProtectedRoute>
+          </CustomRoute>
         )}
       </main>
     </>
