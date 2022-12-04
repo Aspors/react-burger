@@ -16,7 +16,6 @@ export const USER_SUCCESS = "USER_SUCCESS";
 export const USER_FAILED = "USER_FAILED";
 export const LOGOUT = "LOGOUT";
 export const SET_AUTH_CHECKED = "SET_AUTH_CHECKED";
-export const RESET_LOADING = "RESET_LOADING";
 
 export const userLogin = (data, setError, history, from) => {
   return async (dispatch) => {

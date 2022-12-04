@@ -2,47 +2,24 @@ import React, { memo, useCallback } from "react";
 import styles from "./burger-constructor.module.css";
 import { BUTTON } from "../../utils/consts/ui-consts/buttons-text";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
-import Modal from "../modal/modal";
-import OrderDetails from "../modal/order-details/order-details";
 import MenuWrapper from "./menu-wrapper/menu-wrapper";
 import Menu from "./burger-constructor-menu/burger-constructor-menu";
 import Total from "./total/total";
-import { useSelector, useDispatch } from "react-redux";
-import {
-  CLEAR_CART,
-  sendOrder,
-  TOGGLE_CONSTRUCTOR_MODAL,
-} from "../../services/redux/actions/burger-constructor/burger-constructor";
+import { useHistory, useLocation } from "react-router-dom";
+import { ROUTES } from "../../utils/consts/sevice-consts/routes.consts";
 
 const BurgerConstructor = memo(() => {
-  const dispatch = useDispatch();
-  const { cart, bun, isModalActive } = useSelector(
-    (store) => store.constructor
-  );
-
-  const handleShowModal = useCallback(() => {
-    dispatch({ type: TOGGLE_CONSTRUCTOR_MODAL });
-  }, [dispatch]);
-  const handleCloseModal = () => {
-    dispatch({ type: CLEAR_CART });
-
-    handleShowModal();
-  };
+  const history = useHistory();
+  const location = useLocation();
 
   const handleOrderSubmit = useCallback(
     (e) => {
       e.preventDefault();
-      const formedData = {
-        ingredients: [bun._id, ...cart.map((item) => item._id), bun._id],
-      };
-      dispatch(sendOrder(formedData));
-      handleShowModal();
+      history.push(ROUTES.ORDER_DETAILS, { orderBackground: location });
     },
     // eslint-disable-next-line
-    [cart]
+    []
   );
-
-  const isButtonDisabled = isModalActive || !cart.length || !bun;
 
   return (
     <section className="pt-15 pl-4">
@@ -52,7 +29,6 @@ const BurgerConstructor = memo(() => {
       <Total>
         <Button
           onClick={(e) => handleOrderSubmit(e)}
-          disabled={isButtonDisabled}
           htmlType="submit"
           type="primary"
           size="medium"
@@ -61,11 +37,6 @@ const BurgerConstructor = memo(() => {
           {BUTTON.SEND}
         </Button>
       </Total>
-      {isModalActive && (
-        <Modal handleShowModal={handleCloseModal}>
-          <OrderDetails handleShowModal={handleCloseModal} />
-        </Modal>
-      )}
     </section>
   );
 });

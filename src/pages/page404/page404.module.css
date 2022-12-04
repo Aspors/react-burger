@@ -1,0 +1,9 @@
+.container {
+    composes: container from '../../index.css';
+    display: flex;
+    padding-top: 120px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    row-gap: 20px;
+}

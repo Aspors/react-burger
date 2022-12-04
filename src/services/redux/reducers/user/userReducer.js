@@ -4,7 +4,6 @@ import {
   USER_FAILED,
   USER_REQUEST,
   USER_SUCCESS,
-  RESET_LOADING,
 } from "../../actions/user/userActions";
 import { deleteCookie } from "../../../utils/cookie-managment/cookie-manage";
 import {
@@ -37,13 +36,6 @@ const userReducer = (state = initialUserState, action) => {
         ...state,
         isLoading: false,
         isAuthChecked: true,
-      };
-    }
-
-    case RESET_LOADING: {
-      return {
-        ...state,
-        isLoading: false,
       };
     }
 

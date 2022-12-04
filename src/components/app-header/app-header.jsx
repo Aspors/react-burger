@@ -1,45 +1,22 @@
 import React, { memo } from "react";
-import {
-  Logo,
-  BurgerIcon,
-  ListIcon,
-  ProfileIcon,
-} from "@ya.praktikum/react-developer-burger-ui-components";
+import { Logo } from "@ya.praktikum/react-developer-burger-ui-components";
 import appHeaderStyles from "./app-header.module.css";
-import { BUTTON } from "../../utils/consts/ui-consts/buttons-text";
-import { Link, useLocation } from "react-router-dom";
-import { ROUTES } from "../../utils/consts/sevice-consts/routes.consts";
+
+import { Link } from "react-router-dom";
+
+import ConstructorLink from "./constructor-link/constructor-link";
+import OrderLineLink from "./order-line-link/order-line-link";
+import ProfileLink from "./profile-link/profile-link";
 
 const AppHeader = memo(() => {
-  const { pathname } = useLocation();
-  const isHome = pathname === ROUTES.HOME;
-  const isProfile = pathname === ROUTES.PROFILE;
   return (
     <header className={appHeaderStyles.header}>
       <div className="container">
         <div className={appHeaderStyles.header__inner}>
           <nav className={appHeaderStyles.nav}>
             <ul className={appHeaderStyles.nav__list}>
-              <li className={appHeaderStyles["nav__list-item"]}>
-                <Link className={appHeaderStyles["nav__list-link"]} to="/">
-                  <BurgerIcon type={isHome ? "primary" : "secondary"} />
-                  <span
-                    className={`${appHeaderStyles["nav__list-span"]} ${
-                      isHome && appHeaderStyles.active
-                    }`}
-                  >
-                    {BUTTON.CONSTRUCTOR}
-                  </span>
-                </Link>
-              </li>
-              <li className={appHeaderStyles["nav__list-item"]}>
-                <Link className={appHeaderStyles["nav__list-link"]} to="/">
-                  <ListIcon type="secondary" />
-                  <span className={appHeaderStyles["nav__list-span"]}>
-                    {BUTTON.LINE}
-                  </span>
-                </Link>
-              </li>
+              <ConstructorLink />
+              <OrderLineLink />
             </ul>
           </nav>
           <Link className={appHeaderStyles.header__logo} to="/">
@@ -47,21 +24,7 @@ const AppHeader = memo(() => {
           </Link>
           <nav className={appHeaderStyles.nav}>
             <ul className={appHeaderStyles.nav__list}>
-              <li className={appHeaderStyles["nav__list-item"]}>
-                <Link
-                  className={appHeaderStyles["nav__list-link"]}
-                  to="/profile"
-                >
-                  <ProfileIcon type={isProfile ? "primary" : "secondary"} />
-                  <span
-                    className={`${appHeaderStyles["nav__list-span"]} ${
-                      isProfile && appHeaderStyles["active"]
-                    }`}
-                  >
-                    {BUTTON.PROFILE_MENU}
-                  </span>
-                </Link>
-              </li>
+              <ProfileLink />
             </ul>
           </nav>
         </div>
