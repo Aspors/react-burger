@@ -60,7 +60,6 @@ const ProfileForm = () => {
     reset();
   };
 
-  const isDisabled = !isDirty && !user.isLoading;
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Controller
@@ -125,24 +124,21 @@ const ProfileForm = () => {
         )}
       />
 
-      <div className={styles["button-wrapper"]}>
-        <Button
-          onClick={handleCancel}
-          htmlType={"button"}
-          type="secondary"
-          size="small"
-        >
-          Отмена
-        </Button>
-        <Button
-          htmlType={"submit"}
-          disabled={isDisabled}
-          type="primary"
-          size="medium"
-        >
-          Сохранить
-        </Button>
-      </div>
+      {isDirty && (
+        <div className={styles["button-wrapper"]}>
+          <Button
+            onClick={handleCancel}
+            htmlType={"button"}
+            type="secondary"
+            size="small"
+          >
+            Отмена
+          </Button>
+          <Button htmlType={"submit"} type="primary" size="medium">
+            Сохранить
+          </Button>
+        </div>
+      )}
     </form>
   );
 };
