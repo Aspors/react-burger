@@ -1,6 +1,6 @@
 import errorImg from "./error.gif";
 
-const ErrorMessage = () => {
+const ErrorMessage = ({ maxWidth, maxHeight }) => {
   return (
     <img
       src={errorImg}
@@ -8,6 +8,8 @@ const ErrorMessage = () => {
       style={{
         width: "50%",
         height: "50%",
+        maxWidth: maxWidth || "inherit",
+        maxHeight: maxHeight || "inherit",
         margin: "0 auto",
         display: "block",
       }}

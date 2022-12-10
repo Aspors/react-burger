@@ -4,7 +4,7 @@ import {
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import React, { memo, useRef } from "react";
-import { DELETE_ITEM } from "../../../services/actions/burger-constructor/burger-constructor";
+import { DELETE_ITEM } from "../../../services/redux/actions/burger-constructor/burger-constructor";
 import { useDispatch } from "react-redux";
 import { useDrag, useDrop } from "react-dnd";
 

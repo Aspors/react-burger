@@ -1,7 +1,0 @@
-.container {
-  composes: container from "../../index.css";
-  padding: 40px 20px;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  column-gap: 40px;
-}

@@ -1,12 +1,12 @@
 import React, { memo } from "react";
-import {
-  Logo,
-  BurgerIcon,
-  ListIcon,
-  ProfileIcon,
-} from "@ya.praktikum/react-developer-burger-ui-components";
+import { Logo } from "@ya.praktikum/react-developer-burger-ui-components";
 import appHeaderStyles from "./app-header.module.css";
-import { BUTTON } from "../../utils/consts/buttons-text";
+
+import { Link } from "react-router-dom";
+
+import ConstructorLink from "./constructor-link/constructor-link";
+import OrderLineLink from "./order-line-link/order-line-link";
+import ProfileLink from "./profile-link/profile-link";
 
 const AppHeader = memo(() => {
   return (
@@ -15,37 +15,16 @@ const AppHeader = memo(() => {
         <div className={appHeaderStyles.header__inner}>
           <nav className={appHeaderStyles.nav}>
             <ul className={appHeaderStyles.nav__list}>
-              <li className={appHeaderStyles["nav__list-item"]}>
-                <a className={appHeaderStyles["nav__list-link"]} href="/">
-                  <BurgerIcon type="primary" />
-                  <span className={appHeaderStyles["nav__list-span"]}>
-                    {BUTTON.CONSTRUCTOR}
-                  </span>
-                </a>
-              </li>
-              <li className={appHeaderStyles["nav__list-item"]}>
-                <a className={appHeaderStyles["nav__list-link"]} href="/">
-                  <ListIcon type="secondary" />
-                  <span className={appHeaderStyles["nav__list-span"]}>
-                    {BUTTON.LINE}
-                  </span>
-                </a>
-              </li>
+              <ConstructorLink />
+              <OrderLineLink />
             </ul>
           </nav>
-          <a className={appHeaderStyles.header__logo} href="/">
+          <Link className={appHeaderStyles.header__logo} to="/">
             <Logo />
-          </a>
+          </Link>
           <nav className={appHeaderStyles.nav}>
             <ul className={appHeaderStyles.nav__list}>
-              <li className={appHeaderStyles["nav__list-item"]}>
-                <a className={appHeaderStyles["nav__list-link"]} href="/">
-                  <ProfileIcon type="secondary" />
-                  <span className={appHeaderStyles["nav__list-span"]}>
-                    {BUTTON.PROFILE_MENU}
-                  </span>
-                </a>
-              </li>
+              <ProfileLink />
             </ul>
           </nav>
         </div>

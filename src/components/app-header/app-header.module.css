@@ -1,60 +1,60 @@
 .header {
-  background: #1c1c21;
-  max-width: 1920px;
-  height: 88px;
-  padding-top: 16px;
-  margin: 0 auto;
-  box-sizing: border-box;
+    background: #1c1c21;
+    max-width: 1920px;
+    height: 88px;
+    padding-top: 19px;
+    margin: 0 auto;
+    box-sizing: border-box;
 }
+
 .header__inner {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .header__logo {
-  margin: 0 auto;
-  margin-left: 145px;
+    margin: 0 auto 0 133px;
 }
 
 .nav__list {
-  display: flex;
+    display: flex;
+    gap: 48px;
 }
 
 .nav__list-link {
-  display: flex;
-  align-items: center;
-  gap: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.active {
+    color: #f2f2f3 !important;
 }
 
 .nav__list-item {
-  box-sizing: border-box;
-  width: 178px;
-  height: 56px;
-  background: #1c1c21;
-  border-radius: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    box-sizing: border-box;
+    background: #1c1c21;
+    display: flex;
+    align-items: center;
 }
 
-.nav__list-item + .nav__list-item {
-  margin-left: 4px;
-}
 
 .nav a {
-  text-decoration: none;
+    text-decoration: none;
 }
+
 .nav__list-span {
-  font-family: "JetBrains Mono";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 24px;
-  color: #8585ad;
+    font-family: "JetBrains Mono", sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    color: #8585ad;
 }
+
 .nav__list-span svg {
-  width: 24px;
-  height: 24px;
-  transform: translateY(-2px);
+    width: 24px;
+    height: 24px;
+    transform: translateY(-2px);
 }

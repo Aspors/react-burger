@@ -9,18 +9,21 @@ import {
 import {
   ADD_ITEM,
   SET_BUN,
-} from "../../../services/actions/burger-constructor/burger-constructor";
+} from "../../../services/redux/actions/burger-constructor/burger-constructor";
 import { v4 as keyGen } from "uuid";
 import Bun from "../bun/bun";
 
 const MenuWrapper = memo(({ children }) => {
   const { bun } = useSelector((store) => store.constructor);
   const dispatch = useDispatch();
-  const [, dropRef] = useDrop({
+  const [isDragging, dropRef] = useDrop({
     accept: [MENU_TYPE.SAUCE, MENU_TYPE.MAIN],
     drop(item) {
       handleDrop(item);
     },
+    collect: (monitor) => ({
+      isDragging: monitor.isOver(),
+    }),
   });
 
   const handleDrop = (element) => {
@@ -35,11 +38,11 @@ const MenuWrapper = memo(({ children }) => {
       });
     }
   };
-
+  const childrenToProps = React.cloneElement(children, isDragging);
   return (
     <>
       <Bun type="top" bun={bun} />
-      <div ref={dropRef}>{children}</div>
+      <div ref={dropRef}>{childrenToProps}</div>
       <Bun type="bottom" bun={bun} />
     </>
   );
