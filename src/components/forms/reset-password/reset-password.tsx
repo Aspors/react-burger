@@ -11,7 +11,7 @@ import { token, password } from "../../../utils/consts/form-consts/yup-consts";
 import PasswordInput from "../../utils/password-input/password-input";
 import { ROUTES } from "../../../utils/consts/sevice-consts/routes.consts";
 import { _PASSWORD_RESET } from "../../../utils/consts/sevice-consts/Api-consts";
-import useSubmitForm from "../../../hooks/useSubmitForm";
+import { useSubmitForm } from "../../../hooks/useSubmitForm";
 import { FIELD_NAME } from "../../../utils/consts/form-consts/field-names.consts";
 import {
   THistory,
@@ -24,7 +24,7 @@ const ResetPasswordForm = () => {
     token: token,
   });
   const { isDisabled, submitForm } = useSubmitForm();
-  const history = useHistory<THistory>();
+  const history = useHistory<THistory & { pass?: boolean }>();
   const { control, handleSubmit, setError } = useForm(
     validationConfig({ password: "", token: "" }, schema)
   );

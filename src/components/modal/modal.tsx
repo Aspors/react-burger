@@ -14,9 +14,7 @@ const Modal = memo<TModal>(
     const modalOverlayRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-      if (modalOverlayRef?.current) {
-        modalOverlayRef.current.focus();
-      }
+      modalOverlayRef?.current?.focus();
     }, []);
 
     if (modalRoot === null) {

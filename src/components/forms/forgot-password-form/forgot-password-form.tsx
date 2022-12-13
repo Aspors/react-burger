@@ -11,7 +11,7 @@ import { email } from "../../../utils/consts/form-consts/yup-consts";
 
 import { ROUTES } from "../../../utils/consts/sevice-consts/routes.consts";
 
-import useSubmitForm from "../../../hooks/useSubmitForm";
+import { useSubmitForm } from "../../../hooks/useSubmitForm";
 import { _FORGOT_PASSWORD } from "../../../utils/consts/sevice-consts/Api-consts";
 import { FIELD_NAME } from "../../../utils/consts/form-consts/field-names.consts";
 import {

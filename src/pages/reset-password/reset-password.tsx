@@ -6,12 +6,11 @@ import { useEffect } from "react";
 import { THistory } from "../../utils/types/component-types/form.types";
 
 const ResetPassword = () => {
-  const history = useHistory<THistory & { pass: boolean }>();
+  const history = useHistory<THistory & { pass?: boolean }>();
   const pass = history.location.state?.pass;
   useEffect(() => {
     return () => {
       typeof history.location.state?.pass === "boolean" &&
-        // @ts-ignore
         delete history.location.state.pass;
     };
   });

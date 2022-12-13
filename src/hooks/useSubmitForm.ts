@@ -2,7 +2,7 @@ import { useState } from "react";
 import api from "../http";
 import { TFrom, TSubmitData } from "../utils/types/component-types/form.types";
 
-const useSubmitForm = () => {
+export const useSubmitForm = () => {
   const [isDisabled, setDisabled] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<any>();
   const submitForm = (
@@ -38,5 +38,3 @@ const useSubmitForm = () => {
 
   return { isDisabled, submitForm, errorMessage };
 };
-
-export default useSubmitForm;

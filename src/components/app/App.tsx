@@ -22,6 +22,7 @@ import Page404 from "../../pages/page404/page404";
 import useAuthCheck from "../../hooks/useAuthCheck";
 import { TUser } from "../../utils/types/common.types";
 import { useAppDispatch } from "../../hooks/useAppDispatch";
+import { Location } from "history";
 
 const App = () => {
   const location = useLocation<Location & { [key: string]: Location }>();
@@ -53,7 +54,6 @@ const App = () => {
     <>
       <AppHeader />
       <main>
-        {/* @ts-ignore*/}
         <Switch location={background || (user && orderBackground) || location}>
           <Route exact path={ROUTES.HOME}>
             <ConstructorPage />
