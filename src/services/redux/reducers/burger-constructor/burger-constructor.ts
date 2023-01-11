@@ -8,10 +8,24 @@ import {
   TOGGLE_CONSTRUCTOR_MODAL,
   NEW_CART_ORDER,
   CLEAR_CART,
-} from "../../actions/burger-constructor/burger-constructor";
+} from "../../actions/burger-constructor/burger-constructor.consts";
 import { _ERROR, _IDLE, _LOADING } from "../../../utils/machine/machine";
+import { TBurgerConstructorActions } from "../../actions/burger-constructor/burger-constructor.types";
+import { TCart } from "../../../../utils/types/component-types/cart.types";
+import { TBun } from "../../../../utils/types/component-types/bun.types";
+import { TOrder } from "../../../../utils/types/common.types";
 
-export const initialConstructorState = {
+export interface IConstructorState {
+  readonly cart: TCart[];
+  readonly bun: TBun | null;
+
+  readonly orderStatus: typeof _IDLE | typeof _ERROR | typeof _LOADING;
+  readonly order: TOrder | {};
+
+  readonly isModalActive: boolean;
+}
+
+export const initialConstructorState: IConstructorState = {
   cart: [],
   bun: null,
 
@@ -21,7 +35,10 @@ export const initialConstructorState = {
   isModalActive: false,
 };
 
-export const constructorReducer = (state = initialConstructorState, action) => {
+export const constructorReducer = (
+  state = initialConstructorState,
+  action: TBurgerConstructorActions
+): IConstructorState => {
   switch (action.type) {
     case ADD_ITEM: {
       return { ...state, cart: [...state.cart, action.payload] };

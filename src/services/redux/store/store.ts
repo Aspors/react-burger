@@ -19,7 +19,7 @@ const preloadedState = {
   user: initialUserState,
   ingredients: initialBurgerState,
   constructor: initialConstructorState,
-} as any;
+};
 
 const store = configureStore({
   reducer: rootReducer,

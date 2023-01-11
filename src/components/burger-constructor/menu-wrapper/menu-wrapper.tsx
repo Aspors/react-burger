@@ -5,13 +5,14 @@ import {
   CONSTRUCTOR_ELEMENT,
   MENU_TYPE,
 } from "../../../utils/consts/common-consts";
-import {
-  ADD_ITEM,
-  SET_BUN,
-} from "../../../services/redux/actions/burger-constructor/burger-constructor";
+
 import { v4 as keyGen } from "uuid";
 import Bun from "../bun/bun";
 import { TBun } from "../../../utils/types/component-types/bun.types";
+import {
+  ADD_ITEM,
+  SET_BUN,
+} from "../../../services/redux/actions/burger-constructor/burger-constructor.consts";
 
 const MenuWrapper: React.FC<{ children?: ReactNode }> = memo(({ children }) => {
   const bun = useSelector<any, TBun>((store) => store.constructor.bun);

@@ -8,10 +8,11 @@ import Tabs from "./tabs/tabs";
 import { setContent } from "../../services/utils/machine/machine";
 
 import { useDispatch, useSelector } from "react-redux";
-import { CHANGE_TAB } from "../../services/redux/actions/burger-ingredients/burger-ingrediens";
+
 import { MENU_TYPE } from "../../utils/consts/common-consts";
 import { HEADER } from "../../utils/consts/ui-consts/headers-consts";
 import TTemplateIngredient from "../../utils/types/common.types";
+import { CHANGE_TAB } from "../../services/redux/actions/burger-ingredients/burger-ingredients.consts";
 
 const BurgerIngredients = memo(() => {
   const { items, status, activeTab } = useSelector<

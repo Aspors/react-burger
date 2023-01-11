@@ -10,15 +10,22 @@ import {
 import UserService from "../../../user-service/user-service";
 import { ROUTES } from "../../../../utils/consts/sevice-consts/routes.consts";
 import { FIELD_NAME } from "../../../../utils/consts/form-consts/field-names.consts";
+import * as H from "history";
+import { AppDispatch } from "../../store/store";
 
-export const USER_REQUEST = "USER_REQUEST";
-export const USER_SUCCESS = "USER_SUCCESS";
-export const USER_FAILED = "USER_FAILED";
-export const LOGOUT = "LOGOUT";
-export const SET_AUTH_CHECKED = "SET_AUTH_CHECKED";
+export const USER_REQUEST: "USER_REQUEST" = "USER_REQUEST";
+export const USER_SUCCESS: "USER_SUCCESS" = "USER_SUCCESS";
+export const USER_FAILED: "USER_FAILED" = "USER_FAILED";
+export const LOGOUT: "LOGOUT" = "LOGOUT";
+export const SET_AUTH_CHECKED: "SET_AUTH_CHECKED" = "SET_AUTH_CHECKED";
 
-export const userLogin = (data, setError, history, from) => {
-  return async (dispatch) => {
+export const userLogin = (
+  data: any,
+  setError: any,
+  history: H.History,
+  from: string | undefined
+) => {
+  return async (dispatch: AppDispatch) => {
     dispatch({ type: USER_REQUEST });
     AuthService.login(data)
       .then(({ data }) => {
@@ -35,8 +42,13 @@ export const userLogin = (data, setError, history, from) => {
   };
 };
 
-export const userRegister = (data, setError, history, from) => {
-  return async (dispatch) => {
+export const userRegister = (
+  data: any,
+  setError: any,
+  history: H.History,
+  from: string | { [key: string]: string }
+) => {
+  return async (dispatch: AppDispatch) => {
     dispatch({ type: USER_REQUEST });
     AuthService.register(data)
       .then(({ data }) => {
@@ -56,9 +68,12 @@ export const userRegister = (data, setError, history, from) => {
 };
 
 export const userLogOut = () => {
-  return async (dispatch) => {
+  return async (dispatch: AppDispatch) => {
     dispatch({ type: USER_REQUEST });
     const refreshToken = localStorage.getItem(_refreshToken);
+    if (!refreshToken) {
+      return;
+    }
     AuthService.logout(refreshToken)
       .then((res) => {
         localStorage.removeItem(refreshToken);
@@ -74,7 +89,7 @@ export const userLogOut = () => {
 };
 
 export const getUser = () => {
-  return async (dispatch) => {
+  return async (dispatch: AppDispatch) => {
     dispatch({ type: USER_REQUEST });
     UserService.getUser()
       .then((res) => {
@@ -87,8 +102,8 @@ export const getUser = () => {
   };
 };
 
-export const patchUser = (data, onError) => {
-  return async (dispatch) => {
+export const patchUser = (data: any, onError: any) => {
+  return async (dispatch: AppDispatch) => {
     dispatch({ type: USER_REQUEST });
     UserService.patchUser(data)
       .then((res) => {

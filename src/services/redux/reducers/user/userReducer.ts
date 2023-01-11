@@ -10,15 +10,27 @@ import {
   _accessToken,
   _refreshToken,
 } from "../../../../utils/consts/sevice-consts/token-names";
+import { TUser } from "../../../../utils/types/common.types";
+import { TUserActions } from "../../actions/user/userActions.types";
 
-export const initialUserState = {
+export interface IInitialUserState {
+  readonly isAuthChecked: boolean;
+  readonly isLoading: boolean;
+
+  readonly user: null | ReadonlyArray<TUser>;
+}
+
+export const initialUserState: IInitialUserState = {
   isAuthChecked: false,
   isLoading: false,
 
   user: null,
 };
 
-const userReducer = (state = initialUserState, action) => {
+const userReducer = (
+  state = initialUserState,
+  action: TUserActions
+): IInitialUserState => {
   switch (action.type) {
     case USER_REQUEST: {
       return { ...state, isLoading: true };
@@ -27,7 +39,7 @@ const userReducer = (state = initialUserState, action) => {
       return {
         ...state,
         isAuthChecked: true,
-        user: action.payload?.user || initialUserState.user,
+        user: action.payload.user || initialUserState.user,
         isLoading: false,
       };
     }

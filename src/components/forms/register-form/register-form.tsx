@@ -21,6 +21,8 @@ import {
   TSubmitData,
 } from "../../../utils/types/component-types/form.types";
 
+import * as H from "history";
+
 const RegisterForm = () => {
   const schema = yup.object().shape({
     email: email,
@@ -28,7 +30,7 @@ const RegisterForm = () => {
     name: userName,
   });
 
-  const history = useHistory<THistory>();
+  const history = useHistory<H.History & THistory>();
 
   const dispatch = useAppDispatch();
   const isLoading = useSelector<any, boolean>((store) => store.user.isLoading);

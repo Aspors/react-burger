@@ -3,7 +3,7 @@ import React, { forwardRef, FC } from "react";
 import Dummy from "../../utils/dummy/dummy";
 import { useDrop } from "react-dnd";
 import { MENU_TYPE } from "../../../utils/consts/common-consts";
-import { SET_BUN } from "../../../services/redux/actions/burger-constructor/burger-constructor";
+
 import { useDispatch } from "react-redux";
 import bunStyles from "./bun.module.css";
 import { DUMMY_TEXT } from "../../../utils/consts/ui-consts/dummy-consts";
@@ -11,6 +11,7 @@ import {
   IBun,
   IEmptyBun,
 } from "../../../utils/types/component-types/bun.types";
+import { SET_BUN } from "../../../services/redux/actions/burger-constructor/burger-constructor.consts";
 
 const EmptyBun = forwardRef<HTMLDivElement, IEmptyBun>(
   ({ type, isHover }, ref) => {

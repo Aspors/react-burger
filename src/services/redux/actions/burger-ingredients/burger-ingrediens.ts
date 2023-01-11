@@ -1,16 +1,14 @@
 import api from "../../../../http";
 import { _INGREDIENTS } from "../../../../utils/consts/sevice-consts/Api-consts";
-
-export const REQUEST_BURGER_INGREDIENTS = "REQUEST_BURGER_INGREDIENTS";
-export const SUCCESS_BURGER_INGREDIENTS = "SUCCESS_BURGER_INGREDIENTS";
-export const FAILED_BURGER_INGREDIENTS = "FAILED_BURGER_INGREDIENTS";
-export const CHANGE_TAB = "CHANGE_TAB";
-export const SET_MODAL_ELEMENT = "SET_MODAL_ELEMENT";
-
-export var TOGGLE_MODAL = "TOGGLE_MODAL";
+import {
+  FAILED_BURGER_INGREDIENTS,
+  REQUEST_BURGER_INGREDIENTS,
+  SUCCESS_BURGER_INGREDIENTS,
+} from "./burger-ingredients.consts";
+import { AppDispatch } from "../../store/store";
 
 export function getBurgerIngredients() {
-  return async (dispatch) => {
+  return async (dispatch: AppDispatch) => {
     dispatch({ type: REQUEST_BURGER_INGREDIENTS });
     try {
       const { data } = await api.get(_INGREDIENTS);
@@ -23,7 +21,7 @@ export function getBurgerIngredients() {
         dispatch({ type: FAILED_BURGER_INGREDIENTS });
         return new Error(data?.message);
       }
-    } catch (e) {
+    } catch (e: any) {
       dispatch({ type: FAILED_BURGER_INGREDIENTS });
       throw new Error(e);
     }

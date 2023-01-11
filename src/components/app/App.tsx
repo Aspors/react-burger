@@ -17,12 +17,12 @@ import Modal from "../modal/modal";
 import { getBurgerIngredients } from "../../services/redux/actions/burger-ingredients/burger-ingrediens";
 import { useSelector } from "react-redux";
 import OrderDetails from "../modal/order-details/order-details";
-import { CLEAR_CART } from "../../services/redux/actions/burger-constructor/burger-constructor";
 import Page404 from "../../pages/page404/page404";
 import useAuthCheck from "../../hooks/useAuthCheck";
 import { TUser } from "../../utils/types/common.types";
 import { useAppDispatch } from "../../hooks/useAppDispatch";
 import { Location } from "history";
+import { CLEAR_CART } from "../../services/redux/actions/burger-constructor/burger-constructor.consts";
 
 const App = () => {
   const location = useLocation<Location & { [key: string]: Location }>();
