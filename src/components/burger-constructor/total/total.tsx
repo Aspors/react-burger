@@ -1,16 +1,14 @@
 import React, { FC, memo, ReactNode, useMemo } from "react";
 import totalStyles from "./total.module.css";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useSelector } from "react-redux";
-import { TCart } from "../../../utils/types/component-types/cart.types";
-import { TBun } from "../../../utils/types/component-types/bun.types";
+
+import { useAppSelector } from "../../../hooks/useAppSelector";
 
 const Total: FC<{ children?: ReactNode }> = memo(({ children }) => {
-  const { cart, bun } = useSelector<any, { cart: TCart[]; bun: TBun }>(
-    (store) => store.constructor
-  );
+  const { cart, bun } = useAppSelector((store) => store.constructor);
 
   const total = useMemo(() => {
+    // @ts-ignore
     return cart.reduce((sum, item) => item.price + sum, 0) + (bun && bun.price);
   }, [cart, bun]);
   return (

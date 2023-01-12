@@ -1,15 +1,11 @@
 import React, { useCallback } from "react";
 import styles from "./ingredient-details.module.css";
-import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { setContent } from "../../../services/utils/machine/machine";
-import TTemplateIngredient from "../../../utils/types/common.types";
+import { useAppSelector } from "../../../hooks/useAppSelector";
 
 const IngredientDetails = () => {
-  const { items, status } = useSelector<
-    any,
-    { items: TTemplateIngredient[]; status: string }
-  >((store) => store.ingredients);
+  const { items, status } = useAppSelector((store) => store.ingredients);
   const { id } = useParams<{ id: string }>();
   const findItem = useCallback(
     (data: any[]) => {

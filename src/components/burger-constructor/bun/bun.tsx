@@ -4,7 +4,6 @@ import Dummy from "../../utils/dummy/dummy";
 import { useDrop } from "react-dnd";
 import { MENU_TYPE } from "../../../utils/consts/common-consts";
 
-import { useDispatch } from "react-redux";
 import bunStyles from "./bun.module.css";
 import { DUMMY_TEXT } from "../../../utils/consts/ui-consts/dummy-consts";
 import {
@@ -12,6 +11,7 @@ import {
   IEmptyBun,
 } from "../../../utils/types/component-types/bun.types";
 import { SET_BUN } from "../../../services/redux/actions/burger-constructor/burger-constructor.consts";
+import { useAppDispatch } from "../../../hooks/useAppDispatch";
 
 const EmptyBun = forwardRef<HTMLDivElement, IEmptyBun>(
   ({ type, isHover }, ref) => {
@@ -30,7 +30,7 @@ const EmptyBun = forwardRef<HTMLDivElement, IEmptyBun>(
 );
 
 const Bun: FC<IBun> = ({ type, bun }) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [{ isHover }, ref] = useDrop({
     accept: MENU_TYPE.BUN,
     drop(item) {

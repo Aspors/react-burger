@@ -2,9 +2,11 @@ import { Resolver, ValidationMode } from "react-hook-form";
 
 import { AnyObjectSchema } from "yup";
 
-export type TDefaultValues = {
-  [key: string]: string;
-};
+export type TDefaultValues =
+  | {
+      [key: string]: string;
+    }
+  | { [key: string]: undefined };
 
 export type TSchema = AnyObjectSchema;
 
@@ -15,7 +17,7 @@ export type Mode = {
 };
 
 type TValidationObj = {
-  defaultValues: TDefaultValues;
+  defaultValues: TDefaultValues | undefined;
   mode: keyof ValidationMode;
   shouldFocusError: boolean;
   resolver: Resolver;
@@ -23,6 +25,6 @@ type TValidationObj = {
 };
 
 export type TValidation = (
-  defaultValues: TDefaultValues,
+  defaultValues: TDefaultValues | undefined,
   schema: TSchema
 ) => TValidationObj;

@@ -4,30 +4,28 @@ import { ORDER_DETAILS_TXT } from "../../../utils/consts/ui-consts/order-details
 import orderDetailsStyles from "./order-details.module.css";
 import PropTypes from "prop-types";
 
-import { useSelector } from "react-redux";
 import { setContent } from "../../../services/utils/machine/machine";
 import { sendOrder } from "../../../services/redux/actions/burger-constructor/burger-constructor";
 import { useAppDispatch } from "../../../hooks/useAppDispatch";
-import { TCart } from "../../../utils/types/component-types/cart.types";
-import { TBun } from "../../../utils/types/component-types/bun.types";
-import { TOrder } from "../../../utils/types/common.types";
+import { useAppSelector } from "../../../hooks/useAppSelector";
 
 const OrderDetails: React.FC<{ handleShowModal: () => void }> = ({
   handleShowModal,
 }) => {
-  const { order, orderStatus, cart, bun } = useSelector<
-    any,
-    { order: TOrder; orderStatus: string; cart: TCart[]; bun: TBun }
-  >((store) => store.constructor);
+  const { order, orderStatus, cart, bun } = useAppSelector(
+    (store) => store.constructor
+  );
 
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    const formedData = {
-      ingredients: [bun._id, ...cart.map((item) => item._id), bun._id],
-    };
+    if (bun) {
+      const formedData = {
+        ingredients: [bun._id, ...cart.map((item) => item._id), bun._id],
+      };
 
-    dispatch(sendOrder(formedData));
+      dispatch(sendOrder(formedData));
+    }
     // eslint-disable-next-line
   }, []);
 
@@ -41,7 +39,7 @@ const OrderDetails: React.FC<{ handleShowModal: () => void }> = ({
         <h2
           className={`text text_type_digits-large ${orderDetailsStyles.details__header}`}
         >
-          {order.number}
+          {order?.number}
         </h2>
         <p className="mt-8 mb-15 text text_type_main-medium">
           {ORDER_DETAILS_TXT.P_ID}

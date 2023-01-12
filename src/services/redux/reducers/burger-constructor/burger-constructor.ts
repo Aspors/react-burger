@@ -20,7 +20,7 @@ export interface IConstructorState {
   readonly bun: TBun | null;
 
   readonly orderStatus: typeof _IDLE | typeof _ERROR | typeof _LOADING;
-  readonly order: TOrder | {};
+  readonly order: TOrder | null;
 
   readonly isModalActive: boolean;
 }
@@ -30,7 +30,7 @@ export const initialConstructorState: IConstructorState = {
   bun: null,
 
   orderStatus: _IDLE,
-  order: {},
+  order: null,
 
   isModalActive: false,
 };
@@ -72,7 +72,7 @@ export const constructorReducer = (
     }
 
     case SEND_ORDER_FAILED: {
-      return { ...state, orderStatus: _ERROR, order: {} };
+      return { ...state, orderStatus: _ERROR, order: null };
     }
 
     case TOGGLE_CONSTRUCTOR_MODAL: {

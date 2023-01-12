@@ -1,5 +1,4 @@
 import React, { memo, ReactNode } from "react";
-import { useSelector, useDispatch } from "react-redux";
 import { useDrop } from "react-dnd";
 import {
   CONSTRUCTOR_ELEMENT,
@@ -13,10 +12,12 @@ import {
   ADD_ITEM,
   SET_BUN,
 } from "../../../services/redux/actions/burger-constructor/burger-constructor.consts";
+import { useAppDispatch } from "../../../hooks/useAppDispatch";
+import { useAppSelector } from "../../../hooks/useAppSelector";
 
 const MenuWrapper: React.FC<{ children?: ReactNode }> = memo(({ children }) => {
-  const bun = useSelector<any, TBun>((store) => store.constructor.bun);
-  const dispatch = useDispatch();
+  const bun = useAppSelector((store) => store.constructor.bun);
+  const dispatch = useAppDispatch();
   const [isDragging, dropRef] = useDrop({
     accept: [MENU_TYPE.SAUCE, MENU_TYPE.MAIN],
     drop(item: TBun) {

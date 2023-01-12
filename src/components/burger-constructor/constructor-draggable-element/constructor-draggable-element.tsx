@@ -5,14 +5,14 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import React, { memo, useRef } from "react";
 
-import { useDispatch } from "react-redux";
 import { DropTargetMonitor, useDrag, useDrop } from "react-dnd";
 import { IDraggableElement } from "./constructor-draggable-element.types";
 import { DELETE_ITEM } from "../../../services/redux/actions/burger-constructor/burger-constructor.consts";
+import { useAppDispatch } from "../../../hooks/useAppDispatch";
 
 const ConstructorDraggableElement: React.FC<IDraggableElement> = memo(
   ({ name, price, image, id, type, index, moveCard }) => {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const handleDelete = (key: string) => {
       dispatch({ type: DELETE_ITEM, payload: key });
     };

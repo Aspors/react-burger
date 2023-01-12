@@ -3,7 +3,6 @@ import {
   EmailInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./profile.module.css";
-import { useSelector } from "react-redux";
 import PasswordInput from "../../utils/password-input/password-input";
 import { useForm, Controller } from "react-hook-form";
 import * as yup from "yup";
@@ -17,10 +16,10 @@ import { patchUser } from "../../../services/redux/actions/user/userActions";
 import { useAppDispatch } from "../../../hooks/useAppDispatch";
 import { TSubmitData } from "../../../utils/types/component-types/form.types";
 import { AxiosResponse } from "axios";
-import { TUser } from "../../../utils/types/common.types";
+import { useAppSelector } from "../../../hooks/useAppSelector";
 
 const ProfileForm = () => {
-  const user = useSelector<any, TUser>((store) => store.user.user);
+  const user = useAppSelector((store) => store.user.user);
 
   const dispatch = useAppDispatch();
 
@@ -30,22 +29,21 @@ const ProfileForm = () => {
     password: profilePassword,
   });
 
+  const defaultValues = user
+    ? {
+        name: user?.name,
+        email: user?.email,
+        password: "",
+      }
+    : undefined;
+
   const {
     control,
     handleSubmit,
     setError,
     reset,
     formState: { isDirty },
-  } = useForm(
-    validationConfig(
-      {
-        name: user.name,
-        email: user.email,
-        password: "",
-      },
-      schema
-    )
-  );
+  } = useForm(validationConfig(defaultValues, schema));
 
   const onError = (res: AxiosResponse) => {
     res.data?.message.includes("email") &&

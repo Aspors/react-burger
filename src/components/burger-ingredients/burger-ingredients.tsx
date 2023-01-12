@@ -7,19 +7,17 @@ import Tabs from "./tabs/tabs";
 
 import { setContent } from "../../services/utils/machine/machine";
 
-import { useDispatch, useSelector } from "react-redux";
-
 import { MENU_TYPE } from "../../utils/consts/common-consts";
 import { HEADER } from "../../utils/consts/ui-consts/headers-consts";
-import TTemplateIngredient from "../../utils/types/common.types";
 import { CHANGE_TAB } from "../../services/redux/actions/burger-ingredients/burger-ingredients.consts";
+import { useAppDispatch } from "../../hooks/useAppDispatch";
+import { useAppSelector } from "../../hooks/useAppSelector";
 
 const BurgerIngredients = memo(() => {
-  const { items, status, activeTab } = useSelector<
-    any,
-    { items: TTemplateIngredient[]; status: string; activeTab: string }
-  >((store) => store.ingredients);
-  const dispatch = useDispatch();
+  const { items, status, activeTab } = useAppSelector(
+    (store) => store.ingredients
+  );
+  const dispatch = useAppDispatch();
 
   const refs: Array<React.MutableRefObject<HTMLSpanElement | null>> = [
     useRef(null),

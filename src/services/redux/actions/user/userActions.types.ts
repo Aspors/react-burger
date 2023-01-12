@@ -13,7 +13,7 @@ interface IUSER_REQUEST {
 
 interface IUSER_SUCCESS {
   readonly type: typeof USER_SUCCESS;
-  readonly payload: { user: TUser[] };
+  readonly payload: { user: TUser };
 }
 
 interface IUSER_FAILED {

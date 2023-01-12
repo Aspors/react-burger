@@ -13,7 +13,6 @@ import {
   password,
 } from "../../../utils/consts/form-consts/yup-consts";
 import PasswordInput from "../../utils/password-input/password-input";
-import { useSelector } from "react-redux";
 import { userRegister } from "../../../services/redux/actions/user/userActions";
 import { useAppDispatch } from "../../../hooks/useAppDispatch";
 import {
@@ -22,6 +21,7 @@ import {
 } from "../../../utils/types/component-types/form.types";
 
 import * as H from "history";
+import { useAppSelector } from "../../../hooks/useAppSelector";
 
 const RegisterForm = () => {
   const schema = yup.object().shape({
@@ -33,7 +33,7 @@ const RegisterForm = () => {
   const history = useHistory<H.History & THistory>();
 
   const dispatch = useAppDispatch();
-  const isLoading = useSelector<any, boolean>((store) => store.user.isLoading);
+  const isLoading = useAppSelector((store) => store.user.isLoading);
   const { control, handleSubmit, setError } = useForm(
     validationConfig({ email: "", password: "", name: "" }, schema)
   );

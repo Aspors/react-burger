@@ -4,13 +4,11 @@ import {
   MENU_TYPE,
   MENU_TYPE_TRANSLATION,
 } from "../../../utils/consts/common-consts";
-import { useSelector } from "react-redux";
 import ITabs from "./tabs.type";
+import { useAppSelector } from "../../../hooks/useAppSelector";
 
 const Tabs: FC<ITabs> = memo(({ refs }) => {
-  const { activeTab } = useSelector<any, { activeTab: string }>(
-    (store) => store.ingredients
-  );
+  const { activeTab } = useAppSelector((store) => store.ingredients);
 
   const [ref_bun, ref_sauce, ref_main] = refs;
 

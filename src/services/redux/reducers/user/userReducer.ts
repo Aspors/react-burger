@@ -17,7 +17,7 @@ export interface IInitialUserState {
   readonly isAuthChecked: boolean;
   readonly isLoading: boolean;
 
-  readonly user: null | ReadonlyArray<TUser>;
+  readonly user: null | TUser;
 }
 
 export const initialUserState: IInitialUserState = {

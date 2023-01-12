@@ -1,17 +1,13 @@
 import React, { memo, useCallback, forwardRef } from "react";
 import burgerCardsStyles from "./burger-cards.module.css";
 import { MENU_TYPE_TRANSLATION } from "../../../utils/consts/common-consts";
-import { useSelector } from "react-redux";
 import BurgerCard from "../burger-card/burger-card";
 import IBurgerCards from "./burger-cards.types";
-import { TCart } from "../../../utils/types/component-types/cart.types";
-import { TBun } from "../../../utils/types/component-types/bun.types";
+import { useAppSelector } from "../../../hooks/useAppSelector";
 
 const BurgerCards = memo(
   forwardRef<HTMLSpanElement, IBurgerCards>(({ data, type }, ref) => {
-    const { cart, bun } = useSelector<any, { cart: TCart[]; bun: TBun }>(
-      (store) => store.constructor
-    );
+    const { cart, bun } = useAppSelector((store) => store.constructor);
 
     const countItemsAmount = useCallback(
       (id: string) => {
